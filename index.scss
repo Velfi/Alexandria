@@ -36,21 +36,22 @@ $green: #859900;
 body {
   background: $base02;
   color: $base0;
-  font-family: 'Fantasque Sans Mono', sans-serif;
-  font-weight: bold;
+  font-family: 'Ubuntu Mono', sans-serif;
   margin: 3em;
   min-width: 800px;
   max-width: 1920px;
   min-height: 600px;
   max-height: 1080px;
   p {
-    font-size: 1em;
+    font-size: 1.25em;
   }
   h1 {
     font-size: 2.5em;
+    padding-bottom: .5em;
   }
   h2 {
     font-size: 2em;
+    padding-bottom: 1em;
   }
   h3 {
     font-size: 1.5em;

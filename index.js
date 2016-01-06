@@ -30,7 +30,7 @@ var help_files = $.ajax({
   }
 });
 // displays initial scene.
-$("div.display-container").html(scenes.responseJSON.scene0.scene_text);
+typer(scenes.responseJSON.scene0.scene_text);
 var current_scene = "scene0";
 // # Functions # //
 // submit the users input on enter keypress
@@ -44,13 +44,22 @@ $(".submit-on-enter").keydown(function(event) {
   }
 });
 
+function typer(typer_content) {
+  $(".display-container").typed({
+    strings: [typer_content],
+    typeSpeed: 30,
+    showCursor: false
+  });
+}
+
 function inputSanitizer(command_input) {
   return command_input.toLowerCase().split(" ");
 }
-function failedCommand(string){
+
+function failedCommand(string) {
   if (string === undefined) {
-        string = "I'm not sure what you mean by that.";
-    }
+    string = "I'm not sure what you mean by that.";
+  }
   $(".submit-on-enter").attr("placeholder", string);
 }
 
@@ -108,8 +117,7 @@ function moveTo(scene) {
     var move_target = scenes.responseJSON[current_scene].moves[scene];
     $(".display-container").html(scenes.responseJSON[move_target].scene_text);
     currentScene = [move_target];
-  }
-  else {
+  } else {
     failedCommand("I'm not sure I understand where it is you'd like to go.");
   }
 }
@@ -133,8 +141,7 @@ function talk(talk_option) {
     var move_target = scenes.responseJSON[currentScene].moves[scene];
     $(".display-container").html(scenes.responseJSON[move_target].scene_text);
     currentScene = [move_target];
-  }
-  else {
+  } else {
     failedCommand("I'm not sure I understand where it is you'd like to go.");
   }
 }
