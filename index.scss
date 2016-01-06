@@ -14,9 +14,28 @@ $violet: #6c71c4;
 $blue: #268bd2;
 $cyan: #2aa198;
 $green: #859900;
+@mixin optional-at-root($sel) {
+  @at-root #{if(not &, $sel, selector-append(&, $sel))} {
+    @content;
+  }
+}
+@mixin placeholder {
+  @include optional-at-root('::-webkit-input-placeholder') {
+    @content;
+  }
+  @include optional-at-root(':-moz-placeholder') {
+    @content;
+  }
+  @include optional-at-root('::-moz-placeholder') {
+    @content;
+  }
+  @include optional-at-root(':-ms-input-placeholder') {
+    @content;
+  }
+}
 body {
-  background: $base03;
-  color: $base00;
+  background: $base02;
+  color: $base0;
   font-family: 'Fantasque Sans Mono', sans-serif;
   font-weight: bold;
   margin: 3em;
@@ -34,10 +53,10 @@ body {
     font-size: 2em;
   }
   h3 {
-    font-size: 1.5em
+    font-size: 1.5em;
   }
   h4 {
-    font-size: 1.25
+    font-size: 1.25;
   }
 }
 main {
@@ -56,14 +75,17 @@ main {
       padding-left: 20px;
     }
     input {
-      background: $base03;
-      color: $base00;
+      background: $base02;
+      color: $base0;
       border: none;
       font-size: 24px;
       line-height: 45px;
       padding-left: 5px;
       display: inline-block;
       width: 80%;
+      @include placeholder {
+        color: $base01;
+      }
     }
     input:focus {
       outline: 0;
