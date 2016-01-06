@@ -31,29 +31,32 @@ var help_files = $.ajax({
 });
 // displays initial scene.
 $("div.display-container").html(scenes.responseJSON.scene0.scene_text);
-var currentScene = "scene0";
+var current_scene = "scene0";
 // # Functions # //
 // submit the users input on enter keypress
 $(".submit-on-enter").keydown(function(event) {
   if (event.keyCode == 13) {
     event.preventDefault();
-    var lastCommand = $(".submit-on-enter").val();
+    var last_command = $(".submit-on-enter").val();
     $(".submit-on-enter").val("");
-    console.log("Last command input: " + inputSanitizer(lastCommand));
-    parser(lastCommand);
+    console.log("Last command input: " + inputSanitizer(last_command));
+    parser(last_command);
   }
 });
 
-function inputSanitizer(commandInput) {
-  return commandInput.toLowerCase().split(" ");
+function inputSanitizer(command_input) {
+  return command_input.toLowerCase().split(" ");
 }
-function failedCommand(){
-  $(".submit-on-enter").attr("placeholder", "I'm not sure what you mean by that.");
+function failedCommand(string){
+  if (string === undefined) {
+        string = "I'm not sure what you mean by that.";
+    }
+  $(".submit-on-enter").attr("placeholder", string);
 }
 
-function parser(stringsToParse) {
-  $(".submit-on-enter").attr("placeholder", "Last Command: " + stringsToParse);
-  switch (inputSanitizer(stringsToParse)[0]) {
+function parser(strings_to_parse) {
+  $(".submit-on-enter").attr("placeholder", "Last Command: " + strings_to_parse);
+  switch (inputSanitizer(strings_to_parse)[0]) {
     case "help":
       help();
       break;
@@ -61,7 +64,7 @@ function parser(stringsToParse) {
       loadStory();
       break;
     case "go":
-      moveTo(inputSanitizer(stringsToParse)[1]);
+      moveTo(inputSanitizer(strings_to_parse)[1]);
       break;
     case "look":
       look();
@@ -91,22 +94,23 @@ function help() {
 }
 
 function loadStory(story) {
-  if (currentScene === scene0) {
+  if (current_scene === "scene0") {
     // put in code for loading different story files.
     return true;
     // scenes.responseJSON.scene0.scene_text
   } else {
-    console.log("You can only load levels from the main screen.");
+    failedCommand("You can only load levels from the main screen.");
   }
 }
 
 function moveTo(scene) {
-  if (scenes.responseJSON[currentScene].moves.hasOwnProperty(scene)) {
-    var move_target = scenes.responseJSON[currentScene].moves[scene];
+  if (scenes.responseJSON[current_scene].moves.hasOwnProperty(scene)) {
+    var move_target = scenes.responseJSON[current_scene].moves[scene];
     $(".display-container").html(scenes.responseJSON[move_target].scene_text);
+    currentScene = [move_target];
   }
   else {
-    failedCommand();
+    failedCommand("I'm not sure I understand where it is you'd like to go.");
   }
 }
 
@@ -123,8 +127,16 @@ function take() {
   console.log("you have successfully entered the take command.");
 }
 
-function talk() {
+function talk(talk_option) {
   console.log("you have successfully entered the talk command.");
+  if (scenes.responseJSON[currentScene].moves.hasOwnProperty(scene)) {
+    var move_target = scenes.responseJSON[currentScene].moves[scene];
+    $(".display-container").html(scenes.responseJSON[move_target].scene_text);
+    currentScene = [move_target];
+  }
+  else {
+    failedCommand("I'm not sure I understand where it is you'd like to go.");
+  }
 }
 
 // couldn"t get it to work, I"ll come back later.
