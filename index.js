@@ -39,13 +39,16 @@ $(".submit-on-enter").keydown(function(event) {
     event.preventDefault();
     var lastCommand = $(".submit-on-enter").val();
     $(".submit-on-enter").val("");
-    console.log(inputSanitizer(lastCommand));
+    console.log("Last command input: " + inputSanitizer(lastCommand));
     parser(lastCommand);
   }
 });
 
 function inputSanitizer(commandInput) {
   return commandInput.toLowerCase().split(" ");
+}
+function failedCommand(){
+  $(".submit-on-enter").attr("placeholder", "I'm not sure what you mean by that.");
 }
 
 function parser(stringsToParse) {
@@ -77,7 +80,7 @@ function parser(stringsToParse) {
       //   themeSwitcher(inputSanitizer(stringsToParse)[1]);
       //   break;
     default:
-      console.log("That input is invalid.");
+      failedCommand();
   }
 }
 
@@ -98,8 +101,12 @@ function loadStory(story) {
 }
 
 function moveTo(scene) {
-  if (scenes.responseJSON.hasOwnProperty(scene)) {
-    console.log(scenes.responseJSON[scene].scene_text);
+  if (scenes.responseJSON[currentScene].moves.hasOwnProperty(scene)) {
+    var move_target = scenes.responseJSON[currentScene].moves[scene];
+    $(".display-container").html(scenes.responseJSON[move_target].scene_text);
+  }
+  else {
+    failedCommand();
   }
 }
 
