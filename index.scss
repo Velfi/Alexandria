@@ -34,9 +34,10 @@ $green: #859900;
   }
 }
 body {
-  background: $base02;
+  background: #03191f;
   color: $base0;
   font-family: 'Ubuntu Mono', sans-serif;
+  text-shadow: 0px 0px 8px rgba(255,255,255,0.7);
   margin: 3em;
   min-width: 800px;
   max-width: 1920px;
