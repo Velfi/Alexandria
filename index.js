@@ -76,16 +76,24 @@ function search(search_in, search_for) {
       search_in = scene_files.responseJSON.scenes[current_scene].moves
       break;
     case "scenes":
-      search_in = scene_files.responseJSON.scenes
+      search_in = Object.getOwnPropertyNames(scene_files.responseJSON.scenes)
       break;
   }
   var search_result = [];
-  for (var i in search_in) {
-    if (!search_in.hasOwnProperty(i)) continue;
-    if (typeof search_in[i] == 'object') {
-      search_result = search_result.concat(search(search_in[i], search_for));
-    } else if (i == search_for) {
-      search_result.push(search_in[i]);
+  if (search_in instanceof Array) {
+    for (i = 0; i < search_in.length; i++) {
+      if (search_in[i] === search_for) {
+        search_result = search_in[i];
+      }
+    }
+  } else {
+    for (var i in search_in) {
+      if (!search_in.hasOwnProperty(i)) continue;
+      if (typeof search_in[i] == 'object') {
+        search_result = search_result.concat(search(search_in[i], search_for));
+      } else if (i == search_for) {
+        search_result.push(search_in[i]);
+      }
     }
   }
   return search_result;
