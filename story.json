@@ -1,12 +1,12 @@
 {
   "scenes": {
     "scene0": {
-      "scene_text": "<h1>You've successfully begun the example story</h1>",
+      "scene_text": "<h1></h1>",
       "moves": {
         "move1": "scene1"
       },
-      "dialog": {
-        "yes": "scene1"
+      "tags": {
+        "tag1": "lights off"
       }
     },
     "scene1": {
@@ -15,6 +15,12 @@
         "move1": "scene0",
         "move2": "scene0",
         "move3": "scene0"
+      },
+      "items": {
+        "item1": "this is a test item."
+      },
+      "tags": {
+        "tag1": "this is a test tag."
       }
     }
   }
