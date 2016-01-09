@@ -6,9 +6,14 @@ $.ajaxSetup({
 });
 var scene_files = $.getJSON('scenes.json');
 var help_files = $.getJSON('help.json');
+
+// config stuff
+var can_load_stories = true;
 // displays initial scene.
-typer(scene_files.responseJSON.scenes.scene0.scene_text);
+// typer(scene_files.responseJSON.scenes.scene0.scene_text);
+$(".display-container").html(scene_files.responseJSON.scenes.scene0.scene_text);
 var current_scene = "scene0";
+
 // # Functions # //
 // submit the users input on enter keypress
 $(".submit-on-enter").keydown(function(event) {
@@ -104,21 +109,22 @@ function help() {
   $(".display-container").html(help_files.responseJSON.help.topic_content);
 }
 
+function setScene(scene){
+  $(".display-container").html(scene_files.responseJSON.scenes[scene].scene_text);
+  current_scene = scene;
+}
 function loadStory(story) {
-  if (current_scene === "scene0") {
-    // put in code for loading different story files.
-    return true;
-    // scene_files.responseJSON.scene0.scene_text
+  if (can_load_stories === true) {
+    var scene_files = $.getJSON(story);
+    setScene("scene0");
   } else {
-    setPlaceholder("You can only load levels from the main screen.");
+    setPlaceholder("I'm afraid i can't do that right now.");
   }
 }
 
 function moveTo(scene) {
-  if (scene_files.responseJSON[current_scene].moves.hasOwnProperty(scene)) {
-    var move_target = scene_files.responseJSON[current_scene].moves[scene];
-    $(".display-container").html(scene_files.responseJSON[move_target].scene_text);
-    current_scene = [move_target];
+  if (hasProperty("moves",scene)) {
+    setScene(search("moves",scene));
   } else {
     setPlaceholder("I'm not sure I understand where it is you'd like to go.");
   }
@@ -139,13 +145,6 @@ function take() {
 
 function talk(talk_option) {
   console.log("you have successfully entered the talk command.");
-  if (scene_files.responseJSON[current_scene].moves.hasOwnProperty(scene)) {
-    var move_target = scene_files.responseJSON[current_scene].moves[scene];
-    $(".display-container").html(scene_files.responseJSON[move_target].scene_text);
-    current_scene = [move_target];
-  } else {
-    setPlaceholder("Who did you want to talk to?");
-  }
 }
 
 // couldn"t get it to work, I"ll come back later.
@@ -153,3 +152,23 @@ function talk(talk_option) {
 //   $("body").css("background-color", "$base2");
 //   $("input").css("background-color", "$base2");
 // }
+
+function hasProperty(search_in, search_for) {
+  switch (search_in) {
+    case "moves":
+      if (scene_files.responseJSON.scenes[current_scene].moves.hasOwnProperty(search_for)) {
+        return true;
+      } else {
+        return false;
+      }
+      break;
+    case "scenes":
+      if (scene_files.responseJSON.scenes.hasOwnProperty(search_for)) {
+        return true;
+      } else {
+        return false;
+      }
+    default:
+      return false;
+  }
+}
