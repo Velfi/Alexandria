@@ -1,16 +1,18 @@
 {
-  "scene0" : {
-    "scene_text" : "<h1>You look a little weary, traveller.</h1> ^2000 <h2>Why don't you come in and have a seat.</h2> ^2000 <p>I wasn't sure I'd have any visitors today.</p> ^1000 <p>How's about I tell you a story?</p> ^1000 <p>I have one in mind, but if you can think of one you'd like to hear instead, just say so.</p> ^1000 <br/><p>(To load a story, just type 'load (story)' and press enter or, if you like to hear the story they had in mind, just type 'say ok' and press enter.)</p> ^1000 <p>If you need some help on how to play, just type 'help' and press enter.</p>",
-    "moves" : {
-      "move1" : "scene1"
-    }
-  },
-  "scene1" : {
-    "scene_text" : "<h1>This is the second one.</h1>",
-    "moves" : {
-      "move1" : "scene0",
-      "move2" : "scene0",
-      "move3" : "scene0"
+  "scenes": {
+    "scene0": {
+      "scene_text": "<h1>You look a little weary, traveller.</h1> ^2000 <h2>Why don't you come in and have a seat.</h2> ^2000 <p>I wasn't sure I'd have any visitors today.</p> ^1000 <p>How's about I tell you a story?</p> ^1000 <p>I have one in mind, but if you can think of one you'd like to hear instead, just say so.</p> ^1000 <br/><p>(To load a story, just type 'load (story)' and press enter or, if you like to hear the story they had in mind, just type 'say ok' and press enter.)</p> ^1000 <p>If you need some help on how to play, just type 'help' and press enter.</p>",
+      "moves": {
+        "move1": "scene1"
+      }
+    },
+    "scene1": {
+      "scene_text": "<h1>This is the second one.</h1>",
+      "moves": {
+        "move1": "scene0",
+        "move2": "scene0",
+        "move3": "scene0"
+      }
     }
   }
 }

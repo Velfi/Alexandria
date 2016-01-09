@@ -7,7 +7,7 @@ $.ajaxSetup({
 var scene_files = $.getJSON('scenes.json');
 var help_files = $.getJSON('help.json');
 // displays initial scene.
-typer(scene_files.responseJSON.scene0.scene_text);
+typer(scene_files.responseJSON.scenes.scene0.scene_text);
 var current_scene = "scene0";
 // # Functions # //
 // submit the users input on enter keypress
@@ -73,16 +73,17 @@ function parser(strings_to_parse) {
 function search(search_in, search_for) {
   switch (search_in) {
     case "moves":
-      search_in = scene_files.responseJSON[current_scene].moves
+      search_in = scene_files.responseJSON.scenes[current_scene].moves
       break;
-    default:
-      return false;
+    case "scenes":
+      search_in = scene_files.responseJSON.scenes
+      break;
   }
   var search_result = [];
   for (var i in search_in) {
     if (!search_in.hasOwnProperty(i)) continue;
     if (typeof search_in[i] == 'object') {
-      search_result = search_result.concat(getValues(search_in[i], search_for));
+      search_result = search_result.concat(search(search_in[i], search_for));
     } else if (i == search_for) {
       search_result.push(search_in[i]);
     }
