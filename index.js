@@ -14,6 +14,7 @@ var can_load_stories = true;
 $(".display-container").html(scene_files.responseJSON.scenes.scene0.scene_text);
 var current_story = "scene_files"; // genius loci eventually
 var current_scene = "main_menu";
+var player_inventory = [];
 
 // # Functions # //
 // submit the users input on enter keypress
@@ -55,6 +56,9 @@ function parser(strings_to_parse) {
       loadStory(strings_to_parse[1]);
       break;
     case "go":
+    case "move":
+    case "walk":
+    case "run":
       moveTo(strings_to_parse[1]);
       break;
     case "look":
@@ -64,6 +68,7 @@ function parser(strings_to_parse) {
       use();
       break;
     case "take":
+    case "get":
       take();
       break;
     case "talk":
@@ -105,6 +110,26 @@ function search(search_in, search_for) {
     }
   }
   return search_result;
+}
+
+function hasProperty(search_in, search_for) {
+  switch (search_in) {
+    case "moves":
+      if (scene_files.responseJSON.scenes[current_scene].moves.hasOwnProperty(search_for)) {
+        return true;
+      } else {
+        return false;
+      }
+      break;
+    case "scenes":
+      if (scene_files.responseJSON.scenes.hasOwnProperty(search_for)) {
+        return true;
+      } else {
+        return false;
+      }
+    default:
+      return false;
+  }
 }
 // * In-game commands * //
 function help() {
@@ -152,7 +177,6 @@ function moveTo(scene) {
 
 function look() {
   console.log("you have successfully entered the look command.");
-  current_scene
 }
 
 function use() {
@@ -172,23 +196,3 @@ function talk(talk_option) {
 //   $("body").css("background-color", "$base2");
 //   $("input").css("background-color", "$base2");
 // }
-
-function hasProperty(search_in, search_for) {
-  switch (search_in) {
-    case "moves":
-      if (scene_files.responseJSON.scenes[current_scene].moves.hasOwnProperty(search_for)) {
-        return true;
-      } else {
-        return false;
-      }
-      break;
-    case "scenes":
-      if (scene_files.responseJSON.scenes.hasOwnProperty(search_for)) {
-        return true;
-      } else {
-        return false;
-      }
-    default:
-      return false;
-  }
-}
