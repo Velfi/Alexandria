@@ -70,6 +70,25 @@ function parser(strings_to_parse) {
   }
 }
 
+function search(search_in, search_for) {
+  switch (search_in) {
+    case "moves":
+      search_in = scene_files.responseJSON[current_scene].moves
+      break;
+    default:
+      return false;
+  }
+  var search_result = [];
+  for (var i in search_in) {
+    if (!search_in.hasOwnProperty(i)) continue;
+    if (typeof search_in[i] == 'object') {
+      search_result = search_result.concat(getValues(search_in[i], search_for));
+    } else if (i == search_for) {
+      search_result.push(search_in[i]);
+    }
+  }
+  return search_result;
+}
 // * In-game commands * //
 function help() {
   // display the help screen
@@ -90,7 +109,7 @@ function moveTo(scene) {
   if (scene_files.responseJSON[current_scene].moves.hasOwnProperty(scene)) {
     var move_target = scene_files.responseJSON[current_scene].moves[scene];
     $(".display-container").html(scene_files.responseJSON[move_target].scene_text);
-    currentScene = [move_target];
+    current_scene = [move_target];
   } else {
     setPlaceholder("I'm not sure I understand where it is you'd like to go.");
   }
@@ -98,7 +117,7 @@ function moveTo(scene) {
 
 function look() {
   console.log("you have successfully entered the look command.");
-  currentScene
+  current_scene
 }
 
 function use() {
@@ -111,10 +130,10 @@ function take() {
 
 function talk(talk_option) {
   console.log("you have successfully entered the talk command.");
-  if (scene_files.responseJSON[currentScene].moves.hasOwnProperty(scene)) {
-    var move_target = scene_files.responseJSON[currentScene].moves[scene];
+  if (scene_files.responseJSON[current_scene].moves.hasOwnProperty(scene)) {
+    var move_target = scene_files.responseJSON[current_scene].moves[scene];
     $(".display-container").html(scene_files.responseJSON[move_target].scene_text);
-    currentScene = [move_target];
+    current_scene = [move_target];
   } else {
     setPlaceholder("Who did you want to talk to?");
   }
