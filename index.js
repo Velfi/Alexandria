@@ -12,7 +12,8 @@ var can_load_stories = true;
 // displays initial scene.
 // typer(scene_files.responseJSON.scenes.scene0.scene_text);
 $(".display-container").html(scene_files.responseJSON.scenes.scene0.scene_text);
-var current_scene = "scene0";
+var current_story = "scene_files"; // genius loci eventually
+var current_scene = "main_menu";
 
 // # Functions # //
 // submit the users input on enter keypress
@@ -22,7 +23,7 @@ $(".submit-on-enter").keydown(function(event) {
     var last_command = $(".submit-on-enter").val();
     $(".submit-on-enter").val("");
     console.log("Last command input: " + inputSanitizer(last_command));
-    parser(last_command);
+    parser(inputSanitizer(last_command));
   }
 });
 
@@ -43,16 +44,18 @@ function setPlaceholder(string) {
 }
 
 function parser(strings_to_parse) {
-  setPlaceholder("Last Command: " + strings_to_parse);
-  switch (inputSanitizer(strings_to_parse)[0]) {
+  if (current_scene === "main_menu" && strings_to_parse === ["say", "yes"]) {
+    loadStory("story.json");
+  }
+  switch (strings_to_parse[0]) {
     case "help":
       help();
       break;
     case "load":
-      loadStory();
+      loadStory(strings_to_parse[1]);
       break;
     case "go":
-      moveTo(inputSanitizer(strings_to_parse)[1]);
+      moveTo(strings_to_parse[1]);
       break;
     case "look":
       look();
@@ -109,22 +112,39 @@ function help() {
   $(".display-container").html(help_files.responseJSON.help.topic_content);
 }
 
-function setScene(scene){
+function setScene(scene) {
   $(".display-container").html(scene_files.responseJSON.scenes[scene].scene_text);
   current_scene = scene;
+  console.log("setScene loaded a scene.")
 }
+
 function loadStory(story) {
+  story = story + ".json";
   if (can_load_stories === true) {
-    var scene_files = $.getJSON(story);
+    scene_files = $.ajax({
+      type: "GET",
+      url: story,
+      async: false,
+      beforeSend: function(x) {
+        if (x && x.overrideMimeType) {
+          x.overrideMimeType("application/j-son;charset=UTF-8");
+        }
+      },
+      dataType: "json",
+      success: function(data) {
+        return data;
+      }
+    });
     setScene("scene0");
+    can_load_stories = false;
   } else {
     setPlaceholder("I'm afraid i can't do that right now.");
   }
 }
 
 function moveTo(scene) {
-  if (hasProperty("moves",scene)) {
-    setScene(search("moves",scene));
+  if (hasProperty("moves", scene)) {
+    setScene(search("moves", scene));
   } else {
     setPlaceholder("I'm not sure I understand where it is you'd like to go.");
   }
