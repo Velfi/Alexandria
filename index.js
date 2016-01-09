@@ -1,34 +1,11 @@
 "use strict";
 localStorage.clear();
 // imports
-var scenes = $.ajax({
-  type: "GET",
-  url: "scenes.json",
-  async: false,
-  beforeSend: function(x) {
-    if (x && x.overrideMimeType) {
-      x.overrideMimeType("application/j-son;charset=UTF-8");
-    }
-  },
-  dataType: "json",
-  success: function(data) {
-    return data;
-  }
+$.ajaxSetup({
+  async: false
 });
-var help_files = $.ajax({
-  type: "GET",
-  url: "help.json",
-  async: false,
-  beforeSend: function(x) {
-    if (x && x.overrideMimeType) {
-      x.overrideMimeType("application/j-son;charset=UTF-8");
-    }
-  },
-  dataType: "json",
-  success: function(data) {
-    return data;
-  }
-});
+var scenes = $.getJSON('scenes.json');
+var help_files = $.getJSON('help.json');
 // displays initial scene.
 typer(scenes.responseJSON.scene0.scene_text);
 var current_scene = "scene0";
