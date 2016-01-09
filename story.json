@@ -1,0 +1,21 @@
+{
+  "scenes": {
+    "scene0": {
+      "scene_text": "<h1>You've successfully begun the example story</h1>",
+      "moves": {
+        "move1": "scene1"
+      },
+      "dialog": {
+        "yes": "scene1"
+      }
+    },
+    "scene1": {
+      "scene_text": "<h1>Stop me if you've heard this one before...</h1>",
+      "moves": {
+        "move1": "scene0",
+        "move2": "scene0",
+        "move3": "scene0"
+      }
+    }
+  }
+}
