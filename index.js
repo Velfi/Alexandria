@@ -4,10 +4,10 @@ localStorage.clear();
 $.ajaxSetup({
   async: false
 });
-var scenes = $.getJSON('scenes.json');
+var scene_files = $.getJSON('scenes.json');
 var help_files = $.getJSON('help.json');
 // displays initial scene.
-typer(scenes.responseJSON.scene0.scene_text);
+typer(scene_files.responseJSON.scene0.scene_text);
 var current_scene = "scene0";
 // # Functions # //
 // submit the users input on enter keypress
@@ -33,15 +33,12 @@ function inputSanitizer(command_input) {
   return command_input.toLowerCase().split(" ");
 }
 
-function failedCommand(string) {
-  if (string === undefined) {
-    string = "I'm not sure what you mean by that.";
-  }
+function setPlaceholder(string) {
   $(".submit-on-enter").attr("placeholder", string);
 }
 
 function parser(strings_to_parse) {
-  $(".submit-on-enter").attr("placeholder", "Last Command: " + strings_to_parse);
+  setPlaceholder("Last Command: " + strings_to_parse);
   switch (inputSanitizer(strings_to_parse)[0]) {
     case "help":
       help();
@@ -69,7 +66,7 @@ function parser(strings_to_parse) {
       //   themeSwitcher(inputSanitizer(stringsToParse)[1]);
       //   break;
     default:
-      failedCommand();
+      setPlaceholder("I didn't catch that.");
   }
 }
 
@@ -83,19 +80,19 @@ function loadStory(story) {
   if (current_scene === "scene0") {
     // put in code for loading different story files.
     return true;
-    // scenes.responseJSON.scene0.scene_text
+    // scene_files.responseJSON.scene0.scene_text
   } else {
-    failedCommand("You can only load levels from the main screen.");
+    setPlaceholder("You can only load levels from the main screen.");
   }
 }
 
 function moveTo(scene) {
-  if (scenes.responseJSON[current_scene].moves.hasOwnProperty(scene)) {
-    var move_target = scenes.responseJSON[current_scene].moves[scene];
-    $(".display-container").html(scenes.responseJSON[move_target].scene_text);
+  if (scene_files.responseJSON[current_scene].moves.hasOwnProperty(scene)) {
+    var move_target = scene_files.responseJSON[current_scene].moves[scene];
+    $(".display-container").html(scene_files.responseJSON[move_target].scene_text);
     currentScene = [move_target];
   } else {
-    failedCommand("I'm not sure I understand where it is you'd like to go.");
+    setPlaceholder("I'm not sure I understand where it is you'd like to go.");
   }
 }
 
@@ -114,12 +111,12 @@ function take() {
 
 function talk(talk_option) {
   console.log("you have successfully entered the talk command.");
-  if (scenes.responseJSON[currentScene].moves.hasOwnProperty(scene)) {
-    var move_target = scenes.responseJSON[currentScene].moves[scene];
-    $(".display-container").html(scenes.responseJSON[move_target].scene_text);
+  if (scene_files.responseJSON[currentScene].moves.hasOwnProperty(scene)) {
+    var move_target = scene_files.responseJSON[currentScene].moves[scene];
+    $(".display-container").html(scene_files.responseJSON[move_target].scene_text);
     currentScene = [move_target];
   } else {
-    failedCommand("I'm not sure I understand where it is you'd like to go.");
+    setPlaceholder("Who did you want to talk to?");
   }
 }
 
