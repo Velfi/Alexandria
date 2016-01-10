@@ -43,7 +43,10 @@ body {
   max-width: 1920px;
   min-height: 600px;
   max-height: 1080px;
-  p {
+  p,
+  a,
+  i,
+  span {
     font-size: 1.25em;
   }
   h1 {
@@ -69,7 +72,8 @@ body {
     opacity: 0.15;
     box-shadow: inset 0 0 10em #666;
     background-image: url(terminal-effect.png);
-    box-shadow : inset 0px 0px 50px 40px rgba(0, 0, 0, .5);
+    box-shadow: inset 0 0 50px 40px rgba(0, 0, 0, .5);
+    pointer-events: none;
   }
 }
 main {
@@ -104,4 +108,33 @@ main {
       outline: 0;
     }
   }
+}
+.commands {
+  margin: 10px 0;
+  ul li {
+    display: inline-block;
+  }
+}
+.commands ul li a {
+  color: $base01;
+  background-color: #03191f;
+  text-decoration: none;
+  padding: 8px;
+  border-radius: 1px;
+  border: 1px solid $base01;
+}
+.commands ul li a:hover {
+  color: #03191f;
+  background-color: $base01;
+}
+.commands ul li a:active {
+  background-color: $base00;
+  border-color: $base01;
+}
+.command_info {
+  margin-top: 35px;
+}
+.active {
+  background-color: $base00;
+  border-color: $base01;
 }
