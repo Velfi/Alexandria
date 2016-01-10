@@ -1,5 +1,13 @@
 "use strict";
 localStorage.clear();
+// Eventually, this section will test whether or not the user's
+// browser accepts local storage
+// localStorage.setItem('Test', 'Test');
+// if(typeof(Storage) !== "undefined") {
+//     console.log("No storage");
+// } else {
+//     console.log("Yes storage");
+// }
 // imports
 $.ajaxSetup({
   async: false
@@ -9,12 +17,14 @@ var help_files = $.getJSON('help.json');
 
 // config stuff
 var can_load_stories = true;
-// displays initial scene.
+// displays initial scene
 // typer(scene_files.responseJSON.scenes.scene0.scene_text);
-$(".display-container").html(scene_files.responseJSON.scenes.scene0.scene_text);
+setScene("scene0");
 var current_story = "scene_files"; // genius loci eventually
 var current_scene = "main_menu";
-var player_inventory = [];
+var player_inventory = {};
+var player_tags = {};
+// var typer_is_on = false
 
 // # Functions # //
 // submit the users input on enter keypress
@@ -27,7 +37,6 @@ $(".submit-on-enter").keydown(function(event) {
     parser(inputSanitizer(last_command));
   }
 });
-
 
 function hasProperty(search_in, search_for) {
   switch (search_in) {
@@ -86,12 +95,15 @@ function setPlaceholder(string) {
   $(".submit-on-enter").attr("placeholder", string);
 }
 
-function setScene(scene) {
-  $(".display-container").html(scene_files.responseJSON.scenes[scene].scene_text);
-  current_scene = scene;
-  console.log("setScene loaded a scene.")
+function setDisplay(html_to_render) {
+  $(".display-container").html(html_to_render);
 }
 
+function setScene(scene) {
+  setDisplay(scene_files.responseJSON.scenes[scene].scene_text);
+  current_scene = scene;
+  console.log("setScene loaded scene: " + scene)
+}
 
 function typer(typer_content) {
   $(".display-container").typed({
@@ -135,6 +147,9 @@ function parser(strings_to_parse) {
       //   console.log(inputSanitizer(stringsToParse)[1]);
       //   themeSwitcher(inputSanitizer(stringsToParse)[1]);
       //   break;
+    case "options":
+      options();
+      break;
     default:
       setPlaceholder("I didn't catch that.");
   }
@@ -144,6 +159,10 @@ function parser(strings_to_parse) {
 function help() {
   // display the help screen
   $(".display-container").html(help_files.responseJSON.help.topic_content);
+}
+
+function options() {
+
 }
 
 function loadStory(story) {

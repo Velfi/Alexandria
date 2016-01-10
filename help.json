@@ -1,6 +1,6 @@
 {
   "help":{
-    "topic_content":"<h1>test this</h1>",
+    "topic_content":"<h1>Help</h1>",
     "topics":{
       "go": {
         "command": "Go",

@@ -8,7 +8,10 @@ body {
   max-width: 1920px;
   min-height: 600px;
   max-height: 1080px; }
-  body p {
+  body p,
+  body a,
+  body i,
+  body span {
     font-size: 1.25em; }
   body h1 {
     font-size: 2.5em;
@@ -29,7 +32,8 @@ body {
     opacity: 0.15;
     box-shadow: inset 0 0 10em #666;
     background-image: url(terminal-effect.png);
-    box-shadow: inset 0px 0px 50px 40px rgba(0, 0, 0, 0.5); }
+    box-shadow: inset 0 0 50px 40px rgba(0, 0, 0, 0.5);
+    pointer-events: none; }
 
 main {
   margin-top: 3%; }
@@ -63,5 +67,33 @@ main {
         color: #586e75; }
     main .input input:focus {
       outline: 0; }
+
+.commands {
+  margin: 10px 0; }
+  .commands ul li {
+    display: inline-block; }
+
+.commands ul li a {
+  color: #586e75;
+  background-color: #03191f;
+  text-decoration: none;
+  padding: 8px;
+  border-radius: 1px;
+  border: 1px solid #586e75; }
+
+.commands ul li a:hover {
+  color: #03191f;
+  background-color: #586e75; }
+
+.commands ul li a:active {
+  background-color: #657b83;
+  border-color: #586e75; }
+
+.command_info {
+  margin-top: 35px; }
+
+.active {
+  background-color: #657b83;
+  border-color: #586e75; }
 
 /*# sourceMappingURL=index.css.map */

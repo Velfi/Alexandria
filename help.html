@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<head>
+  <title>Adventure</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" type="text/css" href="reset.css">
+  <link rel=stylesheet type="text/css" href="index.css">
+  <link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <script src="jquery-2.1.4.min.js"></script>
+</head>
+
+<body>
+  <main>
+    <div class="display">
+      <div class="display-container">
+        <h1>Help</h1>
+        <div class="commands">
+        <ul>
+          <li id="help"><a class="active" href="#"><i class="fa fa-info-circle"></i> help</a></li>
+          <li id="load"><a href="#">&#9409; load</a></li>
+          <li id="look"><a href="#"><i class="fa fa-eye"></i> look</a></li>
+          <li id="move"><a href="#"><i class="fa fa-arrows"></i> move</a></li>
+          <li id="options"><a href="#">&#9412; options</a></li>
+          <li id="take"><a href="#"><i class="fa fa-hand-paper-o"></i> take</a></li>
+          <li id="talk"><a href="#">&#128068; talk</a></li>
+          <li id="theme"><a href="#">&#7546; theme</a></li>
+          <li id="use"><a href="#">&#1998; use</a></li>
+        </ul>
+      </div>
+        <div class="command_info" id="help_info">
+          <h3>Help</h3>
+          <i>you can also type: </i>
+          <span>?</span>
+          <p>Type help to bring up this screen.</p>
+          <p>Nearly all commands in this game consist of a <b>verb</b> and a <b>noun</b> component, and each help page shows an example. Also, each command can be called using one of its synonyms, which are listed on their respective help pages. Happy adventuring.</p>
+          <h3 style="float: right; margin: 10px 80px;">-Z-</h3>
+        </div>
+        <!-- <div class="command_info" id="move_info">
+          <h4>Move</h4>
+          <p>go</p>
+          <p>walk</p>
+          <p>run</p>
+        </div>
+        <div class="command_info" id="load_info">
+          <h4>Load</h4>
+        </div>
+        <div class="command_info" id="look_info">
+          <h4>Look</h4>
+        </div>
+        <div class="command_info" id="use_info">
+          <h4>Use</h4>
+        </div>
+        <div class="command_info" id="take_info">
+          <h4>Take</h4>
+          <p>get</p>
+        </div>
+        <div class="command_info" id="talk_info">
+          <h4>Talk</h4>
+        </div>
+        <div class="command_info" id="theme_info">
+          <h4>Theme</h4>
+        </div>
+        <div class="command_info" id="options_info">
+          <h4>Options</h4>
+        </div> -->
+      </div>
+    </div>
+    <form class="input">
+      <h2>>> </h2>
+      <input class="submit-on-enter" type="text" autofocus="true" onsubmit="return false">
+    </form>
+  </main>
+  <div class="terminal-effect"></div>
+</body>
+
+
+
+<!-- $("mySelect").append(
+  $.map(selectValues, function(v,k) {
+     return $("<option>").val(k).text(v);
+  })
+);
+$(".display-container").html(help_files.responseJSON.help.topic_content); -->
