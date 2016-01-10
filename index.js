@@ -19,11 +19,13 @@ var help_files = $.getJSON('help.json');
 var can_load_stories = true;
 // displays initial scene
 // typer(scene_files.responseJSON.scenes.scene0.scene_text);
-setScene("scene0");
+var current_scene = "scene0";
+var last_scene = "";
 var current_story = "scene_files"; // genius loci eventually
-var current_scene = "main_menu";
 var player_inventory = {};
 var player_tags = {};
+var in_menu = false;
+setScene("scene0");
 // var typer_is_on = false
 
 // # Functions # //
@@ -101,6 +103,7 @@ function setDisplay(html_to_render) {
 
 function setScene(scene) {
   setDisplay(scene_files.responseJSON.scenes[scene].scene_text);
+  last_scene = current_scene;
   current_scene = scene;
   console.log("setScene loaded scene: " + scene)
 }
@@ -118,47 +121,67 @@ function parser(strings_to_parse) {
   //   loadStory("story.json");
   // }
   switch (strings_to_parse[0]) {
-    case "help":
-      help();
+    case "help": // open the help page
+      help.show();
       break;
-    case "load":
+    case "load": // load a story file
       loadStory(strings_to_parse[1]);
       break;
-    case "go":
+    case "go": // move about
     case "move":
     case "walk":
     case "run":
       moveTo(strings_to_parse[1]);
       break;
-    case "look":
+    case "look": // look at something
       look();
       break;
-    case "use":
+    case "use": // use an object
       use();
       break;
-    case "take":
+    case "take": // take an object
     case "get":
       take();
       break;
-    case "talk":
+    case "talk": // talk to an NPC
       talk();
       break;
       // case "theme":
       //   console.log(inputSanitizer(stringsToParse)[1]);
       //   themeSwitcher(inputSanitizer(stringsToParse)[1]);
       //   break;
-    case "options":
+    case "options": // show game options
       options();
       break;
+    case "back": // back out of in-game menus
+    if (in_menu === true) {
+      setScene(last_scene);
+      setPlaceholder("")
+      break;
+    }
     default:
       setPlaceholder("I didn't catch that.");
   }
 }
 
 // * In-game commands * //
-function help() {
+var help = new function() {
   // display the help screen
-  $(".display-container").html(help_files.responseJSON.help.topic_content);
+  this.show = function() {
+    $(".display-container").load("help.html");
+    $(document).ready(function() {
+      $('#help_info').attr('style', 'display:block');
+    });
+    in_menu = true;
+    setPlaceholder("What exactly would you like to know?");
+  }
+  this.toggler = function(x) {
+    var info_div = ("#" + $(x).attr('id') + "_info");
+    $('.command_info').attr('style', 'display:none');
+    $('.commands ul li').removeClass('active')
+    $(x).addClass('active');
+    $(info_div).attr('style', 'display:block');
+  }
 }
 
 function options() {

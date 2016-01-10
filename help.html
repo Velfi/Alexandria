@@ -1,77 +1,114 @@
-<!DOCTYPE html>
-
-<head>
-  <title>Adventure</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width">
-  <link rel="stylesheet" type="text/css" href="reset.css">
-  <link rel=stylesheet type="text/css" href="index.css">
-  <link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <script src="jquery-2.1.4.min.js"></script>
-  <script src="help.js"></script>
-</head>
-
-<body>
-  <main>
-    <div class="display">
-      <div class="display-container">
-        <h1>Help</h1>
-        <div class="commands">
-        <ul>
-          <li id="help" onclick="help_toggler(this)" class="active"><i class="fa fa-info-circle"></i> help</li>
-          <li id="load" onclick="help_toggler(this)">&#9409; load</li>
-          <li id="look" onclick="help_toggler(this)"><i class="fa fa-eye"></i> look</li>
-          <li id="move" onclick="help_toggler(this)"><i class="fa fa-arrows"></i> move</li>
-          <li id="options" onclick="help_toggler(this)">&#9412; options</li>
-          <li id="take" onclick="help_toggler(this)"><i class="fa fa-hand-paper-o"></i> take</li>
-          <li id="talk" onclick="help_toggler(this)">&#128068; talk</li>
-          <li id="theme" onclick="help_toggler(this)">&#7546; theme</li>
-          <li id="use onclick="help_toggler(this)"">&#1998; use</li>
-        </ul>
-      </div>
-        <div class="command_info" id="help_info">
-          <h3>Help</h3>
-          <i>you can also type: </i>
-          <span>?</span>
-          <p>Type help to bring up this screen.</p>
-          <p>Nearly all commands in this game consist of a <b>verb</b> and a <b>noun</b> component, and each help page shows an example. Also, each command can be called using one of its synonyms, which are listed on their respective help pages. Happy adventuring.</p>
-          <h3 style="float: right; margin: 10px 80px;">-Z-</h3>
-        </div>
-        <!-- <div class="command_info" id="move_info">
-          <h4>Move</h4>
-          <p>go</p>
-          <p>walk</p>
-          <p>run</p>
-        </div>
-        <div class="command_info" id="load_info">
-          <h4>Load</h4>
-        </div>
-        <div class="command_info" id="look_info">
-          <h4>Look</h4>
-        </div>
-        <div class="command_info" id="use_info">
-          <h4>Use</h4>
-        </div>
-        <div class="command_info" id="take_info">
-          <h4>Take</h4>
-          <p>get</p>
-        </div>
-        <div class="command_info" id="talk_info">
-          <h4>Talk</h4>
-        </div>
-        <div class="command_info" id="theme_info">
-          <h4>Theme</h4>
-        </div>
-        <div class="command_info" id="options_info">
-          <h4>Options</h4>
-        </div> -->
-      </div>
+<h1>
+  Help</h1>
+<div class="commands">
+  <ul>
+    <li id="help" onclick="help.toggler(this)" class="active"><i class="fa fa-info-circle"></i> help</li>
+    <li id="load" onclick="help.toggler(this)">&#9409; load</li>
+    <li id="look" onclick="help.toggler(this)"><i class="fa fa-eye"></i> look</li>
+    <li id="move" onclick="help.toggler(this)"><i class="fa fa-arrows"></i> move</li>
+    <li id="options" onclick="help.toggler(this)">&#9412; options</li>
+    <li id="take" onclick="help.toggler(this)"><i class="fa fa-hand-paper-o"></i> take</li>
+    <li id="say" onclick="help.toggler(this)">&#128068; say</li>
+    <li id="theme" onclick="help.toggler(this)">&#7546; theme</li>
+    <li id="use" onclick="help.toggler(this)">&#1998; use</li>
+  </ul>
+</div>
+<div class="command_info" id="help_info">
+  <h3>Help</h3>
+  <div class="info">
+    <p>Usage: type <b>Help</b></p>
+    <i>you can also type: </i>
+    <span>?</span>
+    <p>Type <b>help</b> to bring up this screen. Type <b>back</b> to leave this screen.</p>
+    <p>Nearly all commands in this game consist of a <b>verb</b> and a <b>noun</b> component, and each help page shows an example. Also, each command can be called using one of its synonyms, which are listed on their respective help pages.</p>
+    <br/>
+    <h3 style="float: right; border: none; ">-Z-</h3>
+    <p>Happy adventuring.</p>
+  </div>
+</div>
+<div class="command_info" id="move_info">
+  <h3>Move</h3>
+  <div class="info">
+    <p>Usage: <b>Move</b> <b>Somewhere</b></p>
+    <i>you can also type: </i>
+    <span>Go, Walk, Run</span>
+    <p>Move around the game world.</p>
+    <p>Remember: an active lifestyle is the cornerstone of health.</p>
+  </div>
+</div>
+<div class="command_info" id="load_info">
+  <h3>Load</h3>
+  <div class="info">
+    <p>Usage: <b>Load</b> a <b>Story</b></p>
+    <p>Load a JSON story file. Just type the name of the file, and leave off the extension (the command takes care of that for you.)</p>
+  </div>
+</div>
+<div class="command_info" id="look_info">
+  <h3>Look</h3>
+  <div class="info">
+    <p>Usage: <b>Look</b> at <b>Something</b></p>
+    <p>Look at something in the area or in your inventory. Use whenever you need a bit more information on something.
+      <br/>Failing that, it might at least be an interesting read.
+      <br/>Or not.</p>
+  </div>
+</div>
+<div class="command_info" id="use_info">
+  <h3>Use</h3>
+  <div class="info">
+    <p>Usage: <b>Use</b> <b>Object</b> or <b>Use</b> <b>First Object</b> with <b>Second Object</b></p>
+    <p>Use an object in the area or in your inventory. You can also use objects in combination with each other. Some things like <b>levers</b> or <b>doors</b> are accessible with alternate commands (like <b>pull</b> and <b>open</b>.)</p>
+  </div>
+</div>
+<div class="command_info" id="take_info">
+  <h3>Take</h3>
+  <div class="info">
+    <p>Usage: <b>Take</b> and <b>Object</b></p>
+    <i>you can also type: </i>
+    <span>Get</span>
+    <p>Take an object and store it in your inventory for later use. Don't ask me why you can carry so much and I won't ask you where you put it all. If you find something and you don't know what to do with it, try using the <b>Look</b> command on it.
+    </p>
+  </div>
+</div>
+<div class="command_info" id="say_info">
+  <h3>Say</h3>
+  <div class="info">
+    <p>Usage: <b>Say</b> what you need to say</p>
+    <p>I'm not really sure where this one's gonna go. I think eventually I'd like there to be dialog tress. We'll see. Until then, you won't get anywhere by running your mouth, except in certain places.</p>
+  </div>
+</div>
+<div class="command_info" id="theme_info">
+  <h3>Theme</h3>
+  <div class="info">
+    <p>Usage: <b>Theme</b> <b>Name</b></p>
+    <div class="theme_container">
+      <p>Available themes:</p>
     </div>
-    <form class="input">
-      <h2>>> </h2>
-      <input class="submit-on-enter" type="text" autofocus="true" onsubmit="return false">
-    </form>
-  </main>
-  <div class="terminal-effect"></div>
-</body>
+    <div class="theme_container">
+      <ul>
+        <li>Dark &#8612; the default</li>
+        <h4>Based on solarized dark by Ethan Schoonover.</h4>
+        <li>Light</li>
+        <h4>Based on solarized light by Ethan Schoonover.</h4>
+        <li>TBA</li>
+        <h4>Other stuff that I'll add later.</h4>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="command_info" id="options_info">
+  <h3>Talk</h3>
+  <div class="info">
+    <p>Usage: type <b>Options</b></p>
+    <p>Typing <b>Options</b> will bring up the options menu allowing you to do a number of things, including:</p>
+    <ul>
+      <li>Save or load your savefile.</li>
+      <li>Change the visual theme of the game window.</li>
+      <li>And more, all of which shall be revealed in good time.</li>
+    </ul>
+  </div>
+</div>
+<div class="command_info" id="use_info">
+  <h3>Use</h3>
+  <div class="info">
+  </div>
+</div>

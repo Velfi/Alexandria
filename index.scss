@@ -83,6 +83,7 @@ main {
     min-width: 80vw;
     min-height: 75vh;
     padding: 1em;
+    overflow: hidden;
   }
   .input {
     border-top: 1px solid $base0;
@@ -119,7 +120,6 @@ main {
     padding: 8px;
     border-radius: 1px;
     border: 1px solid $base01;
-    color: $base01;
     cursor: pointer;
     margin: 4px 0;
   }
@@ -135,8 +135,31 @@ main {
     background-color: $base01;
   }
 }
-
 .command_info {
   margin-top: 35px;
-  // visibility: hidden;
+  display: none;
+  border: 1px solid $base0;
+  .info {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 20px 30px;
+    min-height: 35vh;
+    ul {
+      list-style: lower-alpha;
+      padding-left: 55px;
+    }
+  }
+  h3 {
+    border-bottom: 1px solid $base0;
+    line-height: 1.75em;
+    padding-left: 10px;
+    position: relative;
+  }
+  .theme_container {
+    display: inline-flex;
+    margin-right: 20px;
+    h4 {
+      text-indent: 1em;
+    }
+  }
 }

@@ -41,7 +41,8 @@ main {
   main .display {
     min-width: 80vw;
     min-height: 75vh;
-    padding: 1em; }
+    padding: 1em;
+    overflow: hidden; }
   main .input {
     border-top: 1px solid #839496;
     height: 45px;
@@ -78,7 +79,6 @@ main {
     padding: 8px;
     border-radius: 1px;
     border: 1px solid #586e75;
-    color: #586e75;
     cursor: pointer;
     margin: 4px 0; }
   .commands ul li:hover {
@@ -91,6 +91,26 @@ main {
     background-color: #586e75; }
 
 .command_info {
-  margin-top: 35px; }
+  margin-top: 35px;
+  display: none;
+  border: 1px solid #839496; }
+  .command_info .info {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 20px 30px;
+    min-height: 35vh; }
+    .command_info .info ul {
+      list-style: lower-alpha;
+      padding-left: 55px; }
+  .command_info h3 {
+    border-bottom: 1px solid #839496;
+    line-height: 1.75em;
+    padding-left: 10px;
+    position: relative; }
+  .command_info .theme_container {
+    display: inline-flex;
+    margin-right: 20px; }
+    .command_info .theme_container h4 {
+      text-indent: 1em; }
 
 /*# sourceMappingURL=index.css.map */
