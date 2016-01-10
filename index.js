@@ -220,7 +220,7 @@ function moveTo(scene) {
   }
 }
 
-function look()
+function look() {
 console.log("you have successfully entered the look command.");
 }
 
