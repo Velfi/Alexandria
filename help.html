@@ -9,6 +9,7 @@
   <link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <script src="jquery-2.1.4.min.js"></script>
+  <script src="help.js"></script>
 </head>
 
 <body>
@@ -18,15 +19,15 @@
         <h1>Help</h1>
         <div class="commands">
         <ul>
-          <li id="help"><a class="active" href="#"><i class="fa fa-info-circle"></i> help</a></li>
-          <li id="load"><a href="#">&#9409; load</a></li>
-          <li id="look"><a href="#"><i class="fa fa-eye"></i> look</a></li>
-          <li id="move"><a href="#"><i class="fa fa-arrows"></i> move</a></li>
-          <li id="options"><a href="#">&#9412; options</a></li>
-          <li id="take"><a href="#"><i class="fa fa-hand-paper-o"></i> take</a></li>
-          <li id="talk"><a href="#">&#128068; talk</a></li>
-          <li id="theme"><a href="#">&#7546; theme</a></li>
-          <li id="use"><a href="#">&#1998; use</a></li>
+          <li id="help" onclick="help_toggler(this)" class="active"><i class="fa fa-info-circle"></i> help</li>
+          <li id="load" onclick="help_toggler(this)">&#9409; load</li>
+          <li id="look" onclick="help_toggler(this)"><i class="fa fa-eye"></i> look</li>
+          <li id="move" onclick="help_toggler(this)"><i class="fa fa-arrows"></i> move</li>
+          <li id="options" onclick="help_toggler(this)">&#9412; options</li>
+          <li id="take" onclick="help_toggler(this)"><i class="fa fa-hand-paper-o"></i> take</li>
+          <li id="talk" onclick="help_toggler(this)">&#128068; talk</li>
+          <li id="theme" onclick="help_toggler(this)">&#7546; theme</li>
+          <li id="use onclick="help_toggler(this)"">&#1998; use</li>
         </ul>
       </div>
         <div class="command_info" id="help_info">
@@ -74,12 +75,3 @@
   </main>
   <div class="terminal-effect"></div>
 </body>
-
-
-
-<!-- $("mySelect").append(
-  $.map(selectValues, function(v,k) {
-     return $("<option>").val(k).text(v);
-  })
-);
-$(".display-container").html(help_files.responseJSON.help.topic_content); -->
