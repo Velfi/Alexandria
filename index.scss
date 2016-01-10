@@ -46,6 +46,7 @@ body {
   p,
   a,
   i,
+  li,
   span {
     font-size: 1.25em;
   }
@@ -113,28 +114,29 @@ main {
   margin: 10px 0;
   ul li {
     display: inline-block;
+    line-height: 1.25em;
+    text-decoration: none;
+    padding: 8px;
+    border-radius: 1px;
+    border: 1px solid $base01;
+    color: $base01;
+    cursor: pointer;
+    margin: 4px 0;
+  }
+  ul li:hover {
+    color: #03191f;
+    background-color: $base00;
+  }
+  ul li:active {
+    background-color: $base0;
+  }
+  ul .active {
+    color: #03191f;
+    background-color: $base01;
   }
 }
-.commands ul li a {
-  color: $base01;
-  background-color: #03191f;
-  text-decoration: none;
-  padding: 8px;
-  border-radius: 1px;
-  border: 1px solid $base01;
-}
-.commands ul li a:hover {
-  color: #03191f;
-  background-color: $base01;
-}
-.commands ul li a:active {
-  background-color: $base00;
-  border-color: $base01;
-}
+
 .command_info {
   margin-top: 35px;
-}
-.active {
-  background-color: $base00;
-  border-color: $base01;
+  // visibility: hidden;
 }

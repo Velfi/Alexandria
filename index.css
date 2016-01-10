@@ -11,6 +11,7 @@ body {
   body p,
   body a,
   body i,
+  body li,
   body span {
     font-size: 1.25em; }
   body h1 {
@@ -71,29 +72,25 @@ main {
 .commands {
   margin: 10px 0; }
   .commands ul li {
-    display: inline-block; }
-
-.commands ul li a {
-  color: #586e75;
-  background-color: #03191f;
-  text-decoration: none;
-  padding: 8px;
-  border-radius: 1px;
-  border: 1px solid #586e75; }
-
-.commands ul li a:hover {
-  color: #03191f;
-  background-color: #586e75; }
-
-.commands ul li a:active {
-  background-color: #657b83;
-  border-color: #586e75; }
+    display: inline-block;
+    line-height: 1.25em;
+    text-decoration: none;
+    padding: 8px;
+    border-radius: 1px;
+    border: 1px solid #586e75;
+    color: #586e75;
+    cursor: pointer;
+    margin: 4px 0; }
+  .commands ul li:hover {
+    color: #03191f;
+    background-color: #657b83; }
+  .commands ul li:active {
+    background-color: #839496; }
+  .commands ul .active {
+    color: #03191f;
+    background-color: #586e75; }
 
 .command_info {
   margin-top: 35px; }
-
-.active {
-  background-color: #657b83;
-  border-color: #586e75; }
 
 /*# sourceMappingURL=index.css.map */
