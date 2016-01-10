@@ -28,6 +28,71 @@ $(".submit-on-enter").keydown(function(event) {
   }
 });
 
+
+function hasProperty(search_in, search_for) {
+  switch (search_in) {
+    case "moves":
+      if (scene_files.responseJSON.scenes[current_scene].moves.hasOwnProperty(search_for)) {
+        return true;
+      } else {
+        return false;
+      }
+      break;
+    case "scenes":
+      if (scene_files.responseJSON.scenes.hasOwnProperty(search_for)) {
+        return true;
+      } else {
+        return false;
+      }
+    default:
+      return false;
+  }
+}
+
+function inputSanitizer(command_input) {
+  return command_input.toLowerCase().split(" ");
+}
+
+function search(search_in, search_for) {
+  switch (search_in) {
+    case "moves":
+      search_in = scene_files.responseJSON.scenes[current_scene].moves
+      break;
+    case "scenes":
+      search_in = Object.getOwnPropertyNames(scene_files.responseJSON.scenes)
+      break;
+  }
+  var search_result = [];
+  if (search_in instanceof Array) {
+    for (i = 0; i < search_in.length; i++) {
+      if (search_in[i] === search_for) {
+        search_result = search_in[i];
+      }
+    }
+  } else {
+    for (var i in search_in) {
+      if (!search_in.hasOwnProperty(i)) continue;
+      if (typeof search_in[i] == 'object') {
+        search_result = search_result.concat(search(search_in[i], search_for));
+      } else if (i == search_for) {
+        search_result.push(search_in[i]);
+      }
+    }
+  }
+  return search_result;
+}
+
+function setPlaceholder(string) {
+  $(".submit-on-enter").attr("placeholder", string);
+}
+
+function setScene(scene) {
+  $(".display-container").html(scene_files.responseJSON.scenes[scene].scene_text);
+  current_scene = scene;
+  console.log("setScene loaded a scene.")
+}
+
+
 function typer(typer_content) {
   $(".display-container").typed({
     strings: [typer_content],
@@ -36,18 +101,10 @@ function typer(typer_content) {
   });
 }
 
-function inputSanitizer(command_input) {
-  return command_input.toLowerCase().split(" ");
-}
-
-function setPlaceholder(string) {
-  $(".submit-on-enter").attr("placeholder", string);
-}
-
 function parser(strings_to_parse) {
-  if (current_scene === "main_menu" && strings_to_parse === ["say", "yes"]) {
-    loadStory("story.json");
-  }
+  // if (current_scene === "main_menu" && strings_to_parse === ["say", "yes"]) {
+  //   loadStory("story.json");
+  // }
   switch (strings_to_parse[0]) {
     case "help":
       help();
@@ -83,64 +140,10 @@ function parser(strings_to_parse) {
   }
 }
 
-function search(search_in, search_for) {
-  switch (search_in) {
-    case "moves":
-      search_in = scene_files.responseJSON.scenes[current_scene].moves
-      break;
-    case "scenes":
-      search_in = Object.getOwnPropertyNames(scene_files.responseJSON.scenes)
-      break;
-  }
-  var search_result = [];
-  if (search_in instanceof Array) {
-    for (i = 0; i < search_in.length; i++) {
-      if (search_in[i] === search_for) {
-        search_result = search_in[i];
-      }
-    }
-  } else {
-    for (var i in search_in) {
-      if (!search_in.hasOwnProperty(i)) continue;
-      if (typeof search_in[i] == 'object') {
-        search_result = search_result.concat(search(search_in[i], search_for));
-      } else if (i == search_for) {
-        search_result.push(search_in[i]);
-      }
-    }
-  }
-  return search_result;
-}
-
-function hasProperty(search_in, search_for) {
-  switch (search_in) {
-    case "moves":
-      if (scene_files.responseJSON.scenes[current_scene].moves.hasOwnProperty(search_for)) {
-        return true;
-      } else {
-        return false;
-      }
-      break;
-    case "scenes":
-      if (scene_files.responseJSON.scenes.hasOwnProperty(search_for)) {
-        return true;
-      } else {
-        return false;
-      }
-    default:
-      return false;
-  }
-}
 // * In-game commands * //
 function help() {
   // display the help screen
   $(".display-container").html(help_files.responseJSON.help.topic_content);
-}
-
-function setScene(scene) {
-  $(".display-container").html(scene_files.responseJSON.scenes[scene].scene_text);
-  current_scene = scene;
-  console.log("setScene loaded a scene.")
 }
 
 function loadStory(story) {
