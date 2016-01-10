@@ -154,11 +154,11 @@ function parser(strings_to_parse) {
       options();
       break;
     case "back": // back out of in-game menus
-    if (in_menu === true) {
-      setScene(last_scene);
-      setPlaceholder("")
-      break;
-    }
+      if (in_menu === true) {
+        setScene(last_scene);
+        setPlaceholder("")
+        break;
+      }
     default:
       setPlaceholder("I didn't catch that.");
   }
@@ -220,8 +220,8 @@ function moveTo(scene) {
   }
 }
 
-function look() {
-  console.log("you have successfully entered the look command.");
+function look()
+console.log("you have successfully entered the look command.");
 }
 
 function use() {
