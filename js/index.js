@@ -1,37 +1,6 @@
-"use strict";
-"esversion: 6";
-localStorage.clear();
-// Eventually, this section will test whether or not the user's
-// browser accepts local storage
-// localStorage.setItem('Test', 'Test');
-// if(typeof(Storage) !== "undefined") {
-//     console.log("No storage");
-// } else {
-//     console.log("Yes storage");
-// }
-// imports
-
-$.ajaxSetup({
-  async: false
-});
-var scene_files = $.getJSON('json/scenes.json');
-var help_files = $.getJSON('json/help.json');
-
-// config stuff
-var can_load_stories = true;
-var current_scene = "main_menu";
-var last_scene = "";
-var current_story = "scene_files"; // genius loci eventually
-var player_inventory;
-var player_tags;
-var in_menu;
-// var typer_is_on = false
-// typer(scene_files.responseJSON.scenes.scene0.scene_text);
-
-// displays the main menu
-// main_menu.show_menu();
-
+console.log("Index.js loaded");
 // # Functions # //
+
 // submit the users input on enter keypress
 $(".submit-on-enter").keydown(function(event) {
   if (event.keyCode == 13) {
@@ -64,10 +33,6 @@ function hasProperty(search_in, search_for) {
   }
 }
 
-function inputSanitizer(command_input) {
-  return command_input.toLowerCase().split(" ");
-}
-
 function search(search_in, search_for) {
   switch (search_in) {
     case "moves":
@@ -97,12 +62,16 @@ function search(search_in, search_for) {
   return search_result;
 }
 
+function inputSanitizer(command_input) {
+  return command_input.toLowerCase().split(" ");
+}
+
 function setPlaceholder(string) {
   $(".submit-on-enter").attr("placeholder", string);
 }
 
-function setDisplay(html_to_render) {
-  $(".display-container").html(html_to_render);
+function setDisplay(data) {
+  $(".display-container").html(data);
 }
 
 function setScene(scene) {
@@ -121,17 +90,23 @@ function typer(typer_content) {
 }
 var main_menu = {
   show_menu: function() {
-    $(".display-container").load("html/main_menu.html");
+    $.ajax({
+      url: "html/main_menu.html",
+      type: "get",
+      dataType: "html",
+      cache: false,
+      success: setDisplay,
+      async: true,
+    });
     in_menu = true;
     setPlaceholder("What's next for our hero?");
-    console.log("main_menu.show() has loaded the main menu.");
+    console.log("main_menu.show_menu() has loaded the main menu.");
   },
   load_savefile: function() {
     console.log("you tried to save.");
   }
 };
 
-main_menu.show_menu();
 // var options = {
 //   show: funtion() {
 //     $(".display-container").load("options.html");
@@ -143,13 +118,21 @@ main_menu.show_menu();
 var help = {
   // display the help screen
   show_menu: function() {
-    $(".display-container").load("html/help.html");
-    $(document).ready(function() {
-      $('#help_info').attr('style', 'display:block');
+    var help = $.ajax({
+      url: "html/help.html",
+      type: "get",
+      dataType: "html",
+      cache: false,
+      success: function(data) {
+        setDisplay(data);
+        $("#help_info").attr('style', 'display:block');
+      },
+      async: true,
     });
     in_menu = true;
     setPlaceholder("What exactly would you like to know?");
-    console.log("help.show() has loaded the help screen.");
+    console.log("help.show_menu() has loaded the help screen.");
+
   },
   toggler: function(x) {
     var info_div = ("#" + $(x).attr('id') + "_info");
@@ -187,7 +170,7 @@ function loadStory(story) {
 function parser(strings_to_parse) {
   switch (strings_to_parse[0]) {
     case "help": // open the help page
-      help.show();
+      help.show_menu();
       break;
     case "load": // load a story file
       loadStory(strings_to_parse[1]);
