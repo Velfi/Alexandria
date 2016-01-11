@@ -1,4 +1,5 @@
 "use strict";
+"esversion: 6";
 localStorage.clear();
 // Eventually, this section will test whether or not the user's
 // browser accepts local storage
@@ -9,24 +10,26 @@ localStorage.clear();
 //     console.log("Yes storage");
 // }
 // imports
+
 $.ajaxSetup({
   async: false
 });
-var scene_files = $.getJSON('scenes.json');
-var help_files = $.getJSON('help.json');
+var scene_files = $.getJSON('json/scenes.json');
+var help_files = $.getJSON('json/help.json');
 
 // config stuff
 var can_load_stories = true;
-// displays initial scene
-// typer(scene_files.responseJSON.scenes.scene0.scene_text);
-var current_scene = "scene0";
+var current_scene = "main_menu";
 var last_scene = "";
 var current_story = "scene_files"; // genius loci eventually
-var player_inventory = {};
-var player_tags = {};
-var in_menu = false;
-setScene("scene0");
+var player_inventory;
+var player_tags;
+var in_menu;
 // var typer_is_on = false
+// typer(scene_files.responseJSON.scenes.scene0.scene_text);
+
+// displays the main menu
+// main_menu.show_menu();
 
 // # Functions # //
 // submit the users input on enter keypress
@@ -55,6 +58,7 @@ function hasProperty(search_in, search_for) {
       } else {
         return false;
       }
+      break;
     default:
       return false;
   }
@@ -67,26 +71,26 @@ function inputSanitizer(command_input) {
 function search(search_in, search_for) {
   switch (search_in) {
     case "moves":
-      search_in = scene_files.responseJSON.scenes[current_scene].moves
+      search_in = scene_files.responseJSON.scenes[current_scene].moves;
       break;
     case "scenes":
-      search_in = Object.getOwnPropertyNames(scene_files.responseJSON.scenes)
+      search_in = Object.getOwnPropertyNames(scene_files.responseJSON.scenes);
       break;
   }
   var search_result = [];
   if (search_in instanceof Array) {
-    for (i = 0; i < search_in.length; i++) {
+    for (var i = 0; i < search_in.length; i++) {
       if (search_in[i] === search_for) {
         search_result = search_in[i];
       }
     }
   } else {
-    for (var i in search_in) {
-      if (!search_in.hasOwnProperty(i)) continue;
-      if (typeof search_in[i] == 'object') {
-        search_result = search_result.concat(search(search_in[i], search_for));
-      } else if (i == search_for) {
-        search_result.push(search_in[i]);
+    for (var j in search_in) {
+      if (!search_in.hasOwnProperty(j)) continue;
+      if (typeof search_in[j] == 'object') {
+        search_result = search_result.concat(search(search_in[j], search_for));
+      } else if (j == search_for) {
+        search_result.push(search_in[j]);
       }
     }
   }
@@ -105,7 +109,7 @@ function setScene(scene) {
   setDisplay(scene_files.responseJSON.scenes[scene].scene_text);
   last_scene = current_scene;
   current_scene = scene;
-  console.log("setScene loaded scene: " + scene)
+  console.log("setScene loaded scene: " + scene);
 }
 
 function typer(typer_content) {
@@ -115,78 +119,46 @@ function typer(typer_content) {
     showCursor: false
   });
 }
-
-function parser(strings_to_parse) {
-  // if (current_scene === "main_menu" && strings_to_parse === ["say", "yes"]) {
-  //   loadStory("story.json");
-  // }
-  switch (strings_to_parse[0]) {
-    case "help": // open the help page
-      help.show();
-      break;
-    case "load": // load a story file
-      loadStory(strings_to_parse[1]);
-      break;
-    case "go": // move about
-    case "move":
-    case "walk":
-    case "run":
-      moveTo(strings_to_parse[1]);
-      break;
-    case "look": // look at something
-      look();
-      break;
-    case "use": // use an object
-      use();
-      break;
-    case "take": // take an object
-    case "get":
-      take();
-      break;
-    case "talk": // talk to an NPC
-      talk();
-      break;
-      // case "theme":
-      //   console.log(inputSanitizer(stringsToParse)[1]);
-      //   themeSwitcher(inputSanitizer(stringsToParse)[1]);
-      //   break;
-    case "options": // show game options
-      options();
-      break;
-    case "back": // back out of in-game menus
-      if (in_menu === true) {
-        setScene(last_scene);
-        setPlaceholder("")
-        break;
-      }
-    default:
-      setPlaceholder("I didn't catch that.");
+var main_menu = {
+  show_menu: function() {
+    $(".display-container").load("html/main_menu.html");
+    in_menu = true;
+    setPlaceholder("What's next for our hero?");
+    console.log("main_menu.show() has loaded the main menu.");
+  },
+  load_savefile: function() {
+    console.log("you tried to save.");
   }
-}
+};
 
-// * In-game commands * //
-var help = new function() {
+main_menu.show_menu();
+// var options = {
+//   show: funtion() {
+//     $(".display-container").load("options.html");
+//     in_menu = true;
+//     setPlaceholder("What's next for our hero?");
+//     console.log("options.show() has loaded the options screen.");
+//   }
+// };
+var help = {
   // display the help screen
-  this.show = function() {
-    $(".display-container").load("help.html");
+  show_menu: function() {
+    $(".display-container").load("html/help.html");
     $(document).ready(function() {
       $('#help_info').attr('style', 'display:block');
     });
     in_menu = true;
     setPlaceholder("What exactly would you like to know?");
-  }
-  this.toggler = function(x) {
+    console.log("help.show() has loaded the help screen.");
+  },
+  toggler: function(x) {
     var info_div = ("#" + $(x).attr('id') + "_info");
     $('.command_info').attr('style', 'display:none');
-    $('.commands ul li').removeClass('active')
+    $('.commands ul li').removeClass('active');
     $(x).addClass('active');
     $(info_div).attr('style', 'display:block');
   }
-}
-
-function options() {
-
-}
+};
 
 function loadStory(story) {
   story = story + ".json";
@@ -212,6 +184,54 @@ function loadStory(story) {
   }
 }
 
+function parser(strings_to_parse) {
+  switch (strings_to_parse[0]) {
+    case "help": // open the help page
+      help.show();
+      break;
+    case "load": // load a story file
+      loadStory(strings_to_parse[1]);
+      break;
+    case "go": // move about
+    case "move":
+    case "walk":
+    case "run":
+      moveTo(strings_to_parse[1]);
+      break;
+    case "look": // look at something
+      look();
+      break;
+    case "use": // use an object
+      use();
+      break;
+    case "take": // take an object
+    case "get":
+      take();
+      break;
+    case "talk": // talk to an NPC
+    case "say":
+      talk();
+      break;
+      // case "theme":
+      //   console.log(inputSanitizer(stringsToParse)[1]);
+      //   themeSwitcher(inputSanitizer(stringsToParse)[1]);
+      //   break;
+    case "options": // show game options
+      options();
+      break;
+    case "back": // back out of in-game menus
+      if (in_menu === true) {
+        setScene(last_scene);
+        setPlaceholder("");
+      }
+      break;
+    default:
+      setPlaceholder("I didn't catch that.");
+  }
+}
+
+// * In-game commands * //
+
 function moveTo(scene) {
   if (hasProperty("moves", scene)) {
     setScene(search("moves", scene));
@@ -221,7 +241,7 @@ function moveTo(scene) {
 }
 
 function look() {
-console.log("you have successfully entered the look command.");
+  console.log("you have successfully entered the look command.");
 }
 
 function use() {
@@ -233,7 +253,7 @@ function take() {
 }
 
 function talk(talk_option) {
-  console.log("you have successfully entered the talk command.");
+
 }
 
 // couldn"t get it to work, I"ll come back later.
