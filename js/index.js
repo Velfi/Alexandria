@@ -11,6 +11,13 @@ $(".submit-on-enter").keydown(function(event) {
     parser(inputSanitizer(last_command));
   }
 });
+$("body").on("keydown", function(event) {
+  if (event.which == 9) {
+    event.preventDefault();
+    console.log("focused key pressed");
+    $(".submit-on-enter").focus();
+  }
+});
 
 function hasProperty(search_in, search_for) {
   switch (search_in) {
@@ -77,6 +84,7 @@ function setDisplay(data) {
 function setScene(scene) {
   setDisplay(scene_files.responseJSON.scenes[scene].scene_text);
   last_scene = current_scene;
+  console.log(last_scene);
   current_scene = scene;
   console.log("setScene loaded scene: " + scene);
 }
@@ -107,14 +115,24 @@ var main_menu = {
   }
 };
 
-// var options = {
-//   show: funtion() {
-//     $(".display-container").load("options.html");
-//     in_menu = true;
-//     setPlaceholder("What's next for our hero?");
-//     console.log("options.show() has loaded the options screen.");
-//   }
-// };
+var options = {
+  // display the options screen
+  show_menu: function() {
+    var help = $.ajax({
+      url: "html/options.html",
+      type: "get",
+      dataType: "html",
+      cache: false,
+      success: function(data) {
+        setDisplay(data);
+      },
+      async: true,
+    });
+    in_menu = true;
+    setPlaceholder("Go set your settings, setting setter.");
+    console.log("options.show_menu() has loaded the options screen.");
+  }
+};
 var help = {
   // display the help screen
   show_menu: function() {
@@ -132,7 +150,6 @@ var help = {
     in_menu = true;
     setPlaceholder("What exactly would you like to know?");
     console.log("help.show_menu() has loaded the help screen.");
-
   },
   toggler: function(x) {
     var info_div = ("#" + $(x).attr('id') + "_info");
@@ -200,12 +217,17 @@ function parser(strings_to_parse) {
       //   themeSwitcher(inputSanitizer(stringsToParse)[1]);
       //   break;
     case "options": // show game options
-      options();
+      options.show_menu();
       break;
     case "back": // back out of in-game menus
       if (in_menu === true) {
-        setScene(last_scene);
-        setPlaceholder("");
+        console.log(last_scene);
+        if (last_scene == "main_menu") {
+          main_menu.show_menu();
+        } else {
+          setScene(last_scene);
+          setPlaceholder("");
+        }
       }
       break;
     default:
