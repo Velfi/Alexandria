@@ -33,19 +33,9 @@ $green: #859900;
     @content;
   }
 }
-body {
-  background: #03191f;
-  color: $base0;
-  font-family: 'Ubuntu Mono', Inconsolata, sans-serif;
-  text-shadow: 0 0 10px rgba(255,255,255,0.3);
-  margin: 3em;
-  min-width: 800px;
-  max-width: 1920px;
-  min-height: 600px;
-  max-height: 1080px;
+html {
   p,
   a,
-  i,
   li,
   span {
     font-size: 1.25em;
@@ -64,6 +54,17 @@ body {
   h4 {
     font-size: 1.25;
   }
+}
+body {
+  background: #03191f;
+  color: $base0;
+  font-family: 'Ubuntu Mono', Inconsolata, sans-serif;
+  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+  margin: 3em;
+  min-width: 800px;
+  max-width: 1920px;
+  min-height: 600px;
+  max-height: 1080px;
   .terminal-effect {
     position: fixed;
     top: 0;

@@ -24,7 +24,7 @@ var scene_files = $.ajax({
 // config stuff
 var can_load_stories = true;
 var current_scene = "main_menu";
-var last_scene = "";
+var last_scene = "main_menu";
 var current_story = "scene_files"; // genius loci eventually
 var player_inventory;
 var player_tags;
@@ -32,5 +32,5 @@ var in_menu;
 // var typer_is_on = false
 // typer(scene_files.responseJSON.scenes.scene0.scene_text);
 // displays the main menu
-main_menu.show_menu();
+options.show_menu();
 // });
