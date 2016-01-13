@@ -2,7 +2,7 @@ console.log("Index.js loaded");
 // # Functions # //
 
 // submit the users input on RETURN keypress
-$(".submit-on-enter").keydown(function(event) {
+$(".submit-on-enter").keypress(function(event) {
   if (event.keyCode == 13) {
     event.preventDefault();
     var last_command = $(".submit-on-enter").val();
@@ -11,64 +11,6 @@ $(".submit-on-enter").keydown(function(event) {
     parser(inputSanitizer(last_command));
   }
 });
-// make sure that the caret focuses to command line on TAB keypress
-$("body").on("keydown", function(event) {
-  if (event.which == 9) {
-    event.preventDefault();
-    console.log("focused key pressed");
-    $(".submit-on-enter").focus();
-  }
-});
-
-// function hasProperty(search_in, search_for) {
-//   switch (search_in) {
-//     case "moves":
-//       if (scene_files.responseJSON.scenes[current_scene].moves.hasOwnProperty(search_for)) {
-//         return true;
-//       } else {
-//         return false;
-//       }
-//       break;
-//     case "scenes":
-//       if (scene_files.responseJSON.scenes.hasOwnProperty(search_for)) {
-//         return true;
-//       } else {
-//         return false;
-//       }
-//       break;
-//     default:
-//       return false;
-//   }
-// }
-
-// function search(search_in, search_for) {
-//   switch (search_in) {
-//     case "moves":
-//       search_in = scene_files.responseJSON.scenes[current_scene].moves;
-//       break;
-//     case "scenes":
-//       search_in = Object.getOwnPropertyNames(scene_files.responseJSON.scenes);
-//       break;
-//   }
-//   var search_result = [];
-//   if (search_in instanceof Array) {
-//     for (var i = 0; i < search_in.length; i++) {
-//       if (search_in[i] === search_for) {
-//         search_result = search_in[i];
-//       }
-//     }
-//   } else {
-//     for (var j in search_in) {
-//       if (!search_in.hasOwnProperty(j)) continue;
-//       if (typeof search_in[j] == 'object') {
-//         search_result = search_result.concat(search(search_in[j], search_for));
-//       } else if (j == search_for) {
-//         search_result.push(search_in[j]);
-//       }
-//     }
-//   }
-//   return search_result;
-// }
 
 function gameStatus() {
   console.log("last_scene = " + last_scene);
@@ -189,7 +131,7 @@ function parser(strings_to_parse) {
       back();
       break;
     default:
-      setPlaceholder("I didn't catch that.");
+      set_display.placeholder("I didn't catch that.");
   }
 }
 
@@ -242,26 +184,26 @@ var set_scene = { // these are mostly for controlling state
 };
 
 var set_display = {
-  html: function(html_data){
+  html: function(html_data) {
     $(".display-container").html(html_data);
   },
-  scene: function(scene){
+  scene: function(scene) {
     set_display.html(get_scene.html(scene));
     current_scene = scene;
     last_scene = current_scene;
     console.log("set_display.scene has loaded scene: " + scene);
   },
-  placeholder: function(string){
+  placeholder: function(string) {
     $(".submit-on-enter").attr("placeholder", string);
   }
 };
 
 // * In-game commands * //
-function back(){
+function back() {
   if (in_menu === true) {
     set_display.placeholder("");
-    if(last_scene === "main_menu"){
-    main_menu.showMenu();
+    if (last_scene === "main_menu") {
+      main_menu.showMenu();
     }
     in_menu = false;
   }

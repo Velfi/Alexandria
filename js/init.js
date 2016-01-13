@@ -33,7 +33,4 @@ var in_menu;
 // typer(scene_files.responseJSON.scenes.scene0.scene_text);
 // displays the main menu
 main_menu.showMenu();
-$(document).ready(function() {
-  set_scene.storyFile("story");
-});
 // });
