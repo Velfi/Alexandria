@@ -12,7 +12,7 @@ localStorage.clear();
 // imports
 // $(document).ready(function() {
 var scene_files = $.ajax({
-  url: "json/scenes.json",
+  url: "json/story.json",
   type: "get",
   dataType: "json",
   cache: false,
@@ -32,5 +32,5 @@ var in_menu;
 // var typer_is_on = false
 // typer(scene_files.responseJSON.scenes.scene0.scene_text);
 // displays the main menu
-options.show_menu();
+main_menu.show_menu();
 // });

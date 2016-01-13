@@ -1,4 +1,4 @@
-[{
+{
   "scene0" : {
     "setting" : {
       "html" : "<tag-1><h1>This is test html for scene0.</h1></tag-1><tag-2><h2>This is normally hidden by a tag.</h2></tag-2>",
@@ -23,5 +23,10 @@
         }
       }
     }
+  },
+  "scene1" : {
+    "setting" : {
+      "html" : "<tag-1><h1>This is test html for scene0.</h1></tag-1><tag-2><h2>This is normally hidden by a tag.</h2></tag-2>"
+    }
   }
-}]
+}

@@ -1,7 +1,7 @@
 console.log("Index.js loaded");
 // # Functions # //
 
-// submit the users input on enter keypress
+// submit the users input on RETURN keypress
 $(".submit-on-enter").keydown(function(event) {
   if (event.keyCode == 13) {
     event.preventDefault();
@@ -11,6 +11,7 @@ $(".submit-on-enter").keydown(function(event) {
     parser(inputSanitizer(last_command));
   }
 });
+// make sure that the caret focuses to command line on TAB keypress
 $("body").on("keydown", function(event) {
   if (event.which == 9) {
     event.preventDefault();
