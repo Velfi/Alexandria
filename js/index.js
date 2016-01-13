@@ -20,74 +20,63 @@ $("body").on("keydown", function(event) {
   }
 });
 
-function hasProperty(search_in, search_for) {
-  switch (search_in) {
-    case "moves":
-      if (scene_files.responseJSON.scenes[current_scene].moves.hasOwnProperty(search_for)) {
-        return true;
-      } else {
-        return false;
-      }
-      break;
-    case "scenes":
-      if (scene_files.responseJSON.scenes.hasOwnProperty(search_for)) {
-        return true;
-      } else {
-        return false;
-      }
-      break;
-    default:
-      return false;
-  }
+// function hasProperty(search_in, search_for) {
+//   switch (search_in) {
+//     case "moves":
+//       if (scene_files.responseJSON.scenes[current_scene].moves.hasOwnProperty(search_for)) {
+//         return true;
+//       } else {
+//         return false;
+//       }
+//       break;
+//     case "scenes":
+//       if (scene_files.responseJSON.scenes.hasOwnProperty(search_for)) {
+//         return true;
+//       } else {
+//         return false;
+//       }
+//       break;
+//     default:
+//       return false;
+//   }
+// }
+
+// function search(search_in, search_for) {
+//   switch (search_in) {
+//     case "moves":
+//       search_in = scene_files.responseJSON.scenes[current_scene].moves;
+//       break;
+//     case "scenes":
+//       search_in = Object.getOwnPropertyNames(scene_files.responseJSON.scenes);
+//       break;
+//   }
+//   var search_result = [];
+//   if (search_in instanceof Array) {
+//     for (var i = 0; i < search_in.length; i++) {
+//       if (search_in[i] === search_for) {
+//         search_result = search_in[i];
+//       }
+//     }
+//   } else {
+//     for (var j in search_in) {
+//       if (!search_in.hasOwnProperty(j)) continue;
+//       if (typeof search_in[j] == 'object') {
+//         search_result = search_result.concat(search(search_in[j], search_for));
+//       } else if (j == search_for) {
+//         search_result.push(search_in[j]);
+//       }
+//     }
+//   }
+//   return search_result;
+// }
+
+function gameStatus() {
+  console.log("last_scene = " + last_scene);
+  console.log("current_scene = " + current_scene);
 }
 
-function search(search_in, search_for) {
-  switch (search_in) {
-    case "moves":
-      search_in = scene_files.responseJSON.scenes[current_scene].moves;
-      break;
-    case "scenes":
-      search_in = Object.getOwnPropertyNames(scene_files.responseJSON.scenes);
-      break;
-  }
-  var search_result = [];
-  if (search_in instanceof Array) {
-    for (var i = 0; i < search_in.length; i++) {
-      if (search_in[i] === search_for) {
-        search_result = search_in[i];
-      }
-    }
-  } else {
-    for (var j in search_in) {
-      if (!search_in.hasOwnProperty(j)) continue;
-      if (typeof search_in[j] == 'object') {
-        search_result = search_result.concat(search(search_in[j], search_for));
-      } else if (j == search_for) {
-        search_result.push(search_in[j]);
-      }
-    }
-  }
-  return search_result;
-}
-
-function inputSanitizer(command_input) {
+function inputSanitizer(command_input) { // used in submit-on-enter function
   return command_input.toLowerCase().split(" ");
-}
-
-function setPlaceholder(string) {
-  $(".submit-on-enter").attr("placeholder", string);
-}
-
-function setDisplay(data) {
-  $(".display-container").html(data);
-}
-
-function setScene(scene) {
-  setDisplay(scene_files.responseJSON.scenes[scene].scene_text);
-  last_scene = current_scene;
-  console.log(last_scene);
-  current_scene = scene;
-  console.log("setScene loaded scene: " + scene);
 }
 
 function typer(typer_content) {
@@ -97,28 +86,28 @@ function typer(typer_content) {
     showCursor: false
   });
 }
+
 var main_menu = {
-  show_menu: function() {
+  showMenu: function() {
     $.ajax({
       url: "html/main_menu.html",
       type: "get",
       dataType: "html",
       cache: false,
-      success: setDisplay,
+      success: set_display.html,
       async: true,
     });
     in_menu = true;
-    setPlaceholder("What's next for our hero?");
+    set_display.placeholder("What's next for our hero?");
     console.log("main_menu.show_menu() has loaded the main menu.");
   },
-  load_savefile: function() {
+  loadSavefile: function() {
     console.log("you tried to save.");
   }
 };
-
 var options = {
   // display the options screen
-  show_menu: function() {
+  showMenu: function() {
     var help = $.ajax({
       url: "html/options.html",
       type: "get",
@@ -136,20 +125,20 @@ var options = {
 };
 var help = {
   // display the help screen
-  show_menu: function() {
+  showMenu: function() {
     var help = $.ajax({
       url: "html/help.html",
       type: "get",
       dataType: "html",
       cache: false,
       success: function(data) {
-        setDisplay(data);
+        set_display.html(data);
         $("#help_info").attr('style', 'display:block');
       },
       async: true,
     });
     in_menu = true;
-    setPlaceholder("What exactly would you like to know?");
+    set_display.placeholder("What exactly would you like to know?");
     console.log("help.show_menu() has loaded the help screen.");
   },
   toggler: function(x) {
@@ -161,37 +150,13 @@ var help = {
   }
 };
 
-function loadStory(story) {
-  story = story + ".json";
-  if (can_load_stories === true) {
-    scene_files = $.ajax({
-      type: "GET",
-      url: story,
-      async: false,
-      beforeSend: function(x) {
-        if (x && x.overrideMimeType) {
-          x.overrideMimeType("application/j-son;charset=UTF-8");
-        }
-      },
-      dataType: "json",
-      success: function(data) {
-        return data;
-      }
-    });
-    setScene("scene0");
-    can_load_stories = false;
-  } else {
-    setPlaceholder("I'm afraid i can't do that right now.");
-  }
-}
-
 function parser(strings_to_parse) {
   switch (strings_to_parse[0]) {
     case "help": // open the help page
-      help.show_menu();
+      help.showMenu();
       break;
     case "load": // load a story file
-      loadStory(strings_to_parse[1]);
+      set_scene.storyFile(strings_to_parse[1]);
       break;
     case "go": // move about
     case "move":
@@ -218,31 +183,95 @@ function parser(strings_to_parse) {
       //   themeSwitcher(inputSanitizer(stringsToParse)[1]);
       //   break;
     case "options": // show game options
-      options.show_menu();
+      options.showMenu();
       break;
     case "back": // back out of in-game menus
-      if (in_menu === true) {
-        console.log(last_scene);
-        if (last_scene == "main_menu") {
-          main_menu.show_menu();
-        } else {
-          setScene(last_scene);
-          setPlaceholder("");
-        }
-      }
+      back();
       break;
     default:
       setPlaceholder("I didn't catch that.");
   }
 }
 
+var get_scene = { //these are for retrieving specific scene data
+  //returns HTML
+  html: function(scene) {
+    return scene_file.responseJSON[scene].html;
+  },
+  // returns on object
+  tag_init: function(scene) {
+    return scene_file.responseJSON[scene].tag_init;
+  },
+  // returns on object
+  moves: function(scene) {
+    return scene_file.responseJSON[scene].moves;
+  },
+  // returns on object
+  events: function(scene) {
+    return scene_file.responseJSON[scene].events;
+  },
+  // returns on object
+  objects: function(scene) {
+    return scene_file.responseJSON[scene].objects;
+  }
+};
+
+var set_scene = { // these are mostly for controlling state
+  storyFile: function(story_name) {
+    story_file = story_name + ".json";
+    if (can_load_stories === true) {
+      var scene_file = $.ajax({
+        url: "json/" + story_file,
+        type: "get",
+        dataType: "json",
+        cache: false,
+        success: function(data) {
+          return data;
+        },
+        async: true,
+      });
+      set_display.scene("scene0");
+      can_load_stories = false;
+      set_scene.currentScene = "scene0";
+      set_scene.lastScene = current_scene;
+      gameStatus();
+    } else {
+      set_display.placeholder("I'm afraid I can't do that right now.");
+    }
+  }
+};
+
+var set_display = {
+  html: function(html_data){
+    $(".display-container").html(html_data);
+  },
+  scene: function(scene){
+    set_display.html(get_scene.html(scene));
+    current_scene = scene;
+    last_scene = current_scene;
+    console.log("set_display.scene has loaded scene: " + scene);
+  },
+  placeholder: function(string){
+    $(".submit-on-enter").attr("placeholder", string);
+  }
+};
+
 // * In-game commands * //
+function back(){
+  if (in_menu === true) {
+    set_display.placeholder("");
+    if(last_scene === "main_menu"){
+    main_menu.showMenu();
+    }
+    in_menu = false;
+  }
+}
 
 function moveTo(scene) {
-  if (hasProperty("moves", scene)) {
-    setScene(search("moves", scene));
+  if (get_scene.moves(current_scene)[scene]) {
+    set_display.scene(get_scene.moves(current_scene)[scene]);
   } else {
-    setPlaceholder("I'm not sure I understand where it is you'd like to go.");
+    set_display.placeholder("I'm not sure I understand where it is you'd like to go.");
   }
 }
 

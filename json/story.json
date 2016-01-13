@@ -1,32 +1,46 @@
 {
-  "scene0" : {
-    "setting" : {
-      "html" : "<tag-1><h1>This is test html for scene0.</h1></tag-1><tag-2><h2>This is normally hidden by a tag.</h2></tag-2>",
-      "tag_init" :{
-        "tag-1" : "true",
-        "tag-2" : "false"
-      },
-      "css_overrides" : "h1 {color: red}",
-      "moves" : {
-        "move0" : "scene1"
-      },
-      "events" : {
-        "event0" : "This is an event."
-      },
-      "objects" : {
-        "object0" : {
-          "name" : "torch",
-          "description" : "Some oil-soaked cloth wrapped around a stick. You could light it if you had a source of fire.",
-          "unique" : "true",
-          "can_pickup" : "true",
-          "pickup_message" : "You grab the torch and put it in your pack."
-        }
+  "scene0": {
+    "html": "<tag-1><h1>This is test html for scene0.</h1></tag-1><tag-2><h2>This is normally hidden by a tag.</h2></tag-2><p>Try moving <b>east</b>",
+    "events": {
+      "event0": "This is an event."
+    },
+    "moves": {
+      "east": "scene1"
+    },
+    "objects": {
+      "object0": {
+        "name": "torch",
+        "description": "Some oil-soaked cloth wrapped around a stick. You could light it if you had a source of fire.",
+        "unique": "true",
+        "can_pickup": "true",
+        "pickup_message": "You grab the torch and put it in your pack."
       }
+    },
+    "tag_init": {
+      "tag-1": "true",
+      "tag-2": "false"
     }
   },
-  "scene1" : {
-    "setting" : {
-      "html" : "<tag-1><h1>This is test html for scene0.</h1></tag-1><tag-2><h2>This is normally hidden by a tag.</h2></tag-2>"
+  "scene1": {
+    "html": "<tag-1><h1>This is test html for scene1.</h1></tag-1><tag-2><h2>This is normally hidden by a tag.</h2></tag-2><p>Try moving <b>west</b>",
+    "events": {
+      "event0": "This is an event."
+    },
+    "moves": {
+      "west": "scene0"
+    },
+    "objects": {
+      "object0": {
+        "name": "torch",
+        "description": "Some oil-soaked cloth wrapped around a stick. You could light it if you had a source of fire.",
+        "unique": "true",
+        "can_pickup": "true",
+        "pickup_message": "You grab the torch and put it in your pack."
+      }
+    },
+    "tag_init": {
+      "tag-1": "true",
+      "tag-2": "false"
     }
   }
 }

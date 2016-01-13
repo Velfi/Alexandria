@@ -11,7 +11,7 @@ localStorage.clear();
 // }
 // imports
 // $(document).ready(function() {
-var scene_files = $.ajax({
+var scene_file = $.ajax({
   url: "json/story.json",
   type: "get",
   dataType: "json",
@@ -32,5 +32,8 @@ var in_menu;
 // var typer_is_on = false
 // typer(scene_files.responseJSON.scenes.scene0.scene_text);
 // displays the main menu
-main_menu.show_menu();
+main_menu.showMenu();
+$(document).ready(function() {
+  set_scene.storyFile("story");
+});
 // });
