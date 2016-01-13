@@ -3,7 +3,7 @@
 localStorage.clear();
 // Eventually, this section will test whether or not the user's
 // browser accepts local storage
-// localStorage.setItem('Test', 'Test');
+// localStorage.setItem("Test", "Test");
 // if(typeof(Storage) !== "undefined") {
 //     console.log("No storage");
 // } else {

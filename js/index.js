@@ -78,7 +78,7 @@ var help = {
       cache: false,
       success: function(data) {
         set_display.html(data);
-        $("#help_info").attr('style', 'display:block');
+        $("#help_info").attr("style", "display:block");
       },
       async: true,
     });
@@ -87,11 +87,11 @@ var help = {
     console.log("help.show_menu() has loaded the help screen.");
   },
   toggler: function(x) {
-    var info_div = ("#" + $(x).attr('id') + "_info");
-    $('.command_info').attr('style', 'display:none');
-    $('.commands ul li').removeClass('active');
-    $(x).addClass('active');
-    $(info_div).attr('style', 'display:block');
+    var info_div = ("#" + $(x).attr("id") + "_info");
+    $(".command_info").attr("style", "display:none");
+    $(".commands ul li").removeClass("active");
+    $(x).addClass("active");
+    $(info_div).attr("style", "display:block");
   }
 };
 
@@ -181,7 +181,7 @@ var set_scene = { // these are mostly for controlling state
       set_scene.lastScene = current_scene;
       gameStatus();
     } else {
-      set_display.placeholder("I'm afraid I can't do that right now.");
+      set_display.placeholder("I"m afraid I can"t do that right now.");
     }
   }
 };
