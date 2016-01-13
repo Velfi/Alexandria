@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "scene0" : {
     "setting" : {
       "html" : "<tag-1><h1>This is test html for scene0.</h1></tag-1><tag-2><h2>This is normally hidden by a tag.</h2></tag-2>",
@@ -29,31 +28,5 @@
     "setting" : {
       "html" : "<tag-1><h1>This is test html for scene0.</h1></tag-1><tag-2><h2>This is normally hidden by a tag.</h2></tag-2>"
     }
-=======
-  "scenes": {
-    "scene0": {
-      "scene_text": "<h1>This is the story.json file.</h1>",
-      "moves": {
-        "move1": "scene1"
-      },
-      "tags": {
-        "tag1": "lights off"
-      }
-    },
-    "scene1": {
-      "scene_text": "<h1>Stop me if you've heard this one before...</h1>",
-      "moves": {
-        "move1": "scene0",
-        "move2": "scene0",
-        "move3": "scene0"
-      },
-      "items": {
-        "item1": "this is a test item."
-      },
-      "tags": {
-        "tag1": "this is a test tag."
-      }
-    }
->>>>>>> 9bff6598b4e1afee313b94d7e7573f6bbfe9373c
   }
 }

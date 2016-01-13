@@ -17,7 +17,7 @@ html h4 {
 body {
   background: #03191f;
   color: #839496;
-  font-family: 'Ubuntu Mono', Inconsolata, sans-serif;
+  font-family: Inconsolata, sans-serif;
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
   margin: 3em;
   min-width: 800px;
