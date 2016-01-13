@@ -1,4 +1,4 @@
-"use strict";
+// "use strict";
 "esversion: 6";
 localStorage.clear();
 // Eventually, this section will test whether or not the user's

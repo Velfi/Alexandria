@@ -1,3 +1,4 @@
+// "use strict";
 console.log("Index.js loaded");
 // # Functions # //
 
@@ -15,27 +16,28 @@ $(".modal-button, .modal-kill").click(function() {
   set_display.modalClose();
 });
 $(document).on("keydown", function(event) {
-  if(event.which === 13 && $(".modal").is(':visible')) {
+  if (event.which === 13 && $(".modal").is(':visible')) {
     set_display.modalClose();
   }
 });
 
-function gameStatus() {
-  console.log("last_scene = " + last_scene);
-  console.log("current_scene = " + current_scene);
-}
+// // for debugging
+// function gameStatus() {
+//   console.log("last_scene = " + last_scene);
+//   console.log("current_scene = " + current_scene);
+// }
 
 function inputSanitizer(command_input) { // used in submit-on-enter function
   return command_input.toLowerCase().split(" ");
 }
-
-function typer(typer_content) {
-  $(".display-container").typed({
-    strings: [typer_content],
-    typeSpeed: 30,
-    showCursor: false
-  });
-}
+// // disabled during testing
+// function typer(typer_content) {
+//   $(".display-container").typed({
+//     strings: [typer_content],
+//     typeSpeed: 30,
+//     showCursor: false
+//   });
+// }
 
 var main_menu = {
   showMenu: function() {
@@ -69,7 +71,7 @@ var options = {
       async: true,
     });
     in_menu = true;
-    setPlaceholder("Go set your settings, setting setter.");
+    set_display.placeholder("Go set your settings, setting setter.");
     console.log("options.show_menu() has loaded the options screen.");
   }
 };
@@ -106,7 +108,7 @@ function parser(strings_to_parse) {
       help.showMenu();
       break;
     case "load": // load a story file
-      set_scene.storyFile(strings_to_parse[1]);
+      loadStory(strings_to_parse[1]);
       break;
     case "go": // move about
     case "move":
@@ -117,12 +119,16 @@ function parser(strings_to_parse) {
     case "look": // look at something
       look();
       break;
+    case "inventory":
+    case "inv":
+      inventory();
+      break;
     case "use": // use an object
       use(strings_to_parse[1]);
       break;
     case "take": // take an object
     case "get":
-      take();
+      take(strings_to_parse[1]);
       break;
     case "talk": // talk to an NPC
     case "say":
@@ -166,30 +172,34 @@ var get_scene = { //these are for retrieving specific scene data
   }
 };
 
-var set_scene = { // these are mostly for controlling state
-  storyFile: function(story_name) {
-    story_file = story_name + ".json";
-    if (can_load_stories === true) {
-      var scene_file = $.ajax({
-        url: "json/" + story_file,
-        type: "get",
-        dataType: "json",
-        cache: false,
-        success: function(data) {
-          return data;
-        },
-        async: true,
-      });
-      set_display.scene("scene0");
-      can_load_stories = false;
-      set_scene.currentScene = "scene0";
-      set_scene.lastScene = current_scene;
-      gameStatus();
-    } else {
-      set_display.placeholder("I'm afraid I can't do that right now.");
-    }
+function loadStory(story_name) {
+  var story_file = story_name + ".json";
+  if (can_load_stories === true) {
+    scene_file = $.ajax({
+      url: "json/" + story_file,
+      type: "get",
+      dataType: "json",
+      cache: false,
+      success: [function(data) {
+        return data;
+      },
+      function(){
+        set_display.scene("scene0");
+        can_load_stories = false;
+        current_scene = "scene0";
+        last_scene = current_scene;
+        set_display.placeholder("And so it begins...");
+      }],
+      error: function() {
+        set_display.placeholder("I'm afraid I don't know that story.");
+      },
+      async: true,
+    });
+
+  } else {
+    set_display.placeholder("let me finish this story first before you start asking for another.");
   }
-};
+}
 
 var set_display = {
   html: function(html_data) {
@@ -246,18 +256,32 @@ function use(object) {
   } else {
     set_display.placeholder("I don't think you can use that.");
   }
-  console.log("you have successfully entered the use command.");
 }
 
-function take() {
-  console.log("you have successfully entered the take command.");
+function take(object) {
+  if (get_scene.objects(current_scene)[object]) { //if object is present
+    if (get_scene.objects(current_scene)[object].can_take) { // and is takeable
+      if (get_scene.objects(current_scene)[object].is_unique)
+        set_display.modalOpen(get_scene.objects(current_scene)[object].take_message);
+      inventory.addItem(object);
+    } else {
+      set_display.placeholder("What are you trying to take?");
+    }
+  }
 }
 
 function talk(talk_option) {
 
 }
-
-// couldn"t get it to work, I"ll come back later.
+var inventory = {
+  addItem: function(object) {
+    player_inventory.push(object);
+  },
+  removeItem: function(object) {
+    player_inventory = player_inventory.splice(player_inventory.indexOf(object), 1);
+  }
+};
+// couldn't get it to work, I'll come back later.
 // function themeSwitcher() {
 //   $("body").css("background-color", "$base2");
 //   $("input").css("background-color", "$base2");
