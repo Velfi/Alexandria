@@ -12,7 +12,11 @@ localStorage.clear();
 // imports
 // $(document).ready(function() {
 var scene_files = $.ajax({
+<<<<<<< HEAD
   url: "json/story.json",
+=======
+  url: "json/scenes.json",
+>>>>>>> 9bff6598b4e1afee313b94d7e7573f6bbfe9373c
   type: "get",
   dataType: "json",
   cache: false,
@@ -32,5 +36,9 @@ var in_menu;
 // var typer_is_on = false
 // typer(scene_files.responseJSON.scenes.scene0.scene_text);
 // displays the main menu
+<<<<<<< HEAD
 main_menu.show_menu();
+=======
+options.show_menu();
+>>>>>>> 9bff6598b4e1afee313b94d7e7573f6bbfe9373c
 // });

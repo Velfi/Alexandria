@@ -1,7 +1,11 @@
 console.log("Index.js loaded");
 // # Functions # //
 
+<<<<<<< HEAD
 // submit the users input on RETURN keypress
+=======
+// submit the users input on enter keypress
+>>>>>>> 9bff6598b4e1afee313b94d7e7573f6bbfe9373c
 $(".submit-on-enter").keydown(function(event) {
   if (event.keyCode == 13) {
     event.preventDefault();
@@ -11,7 +15,10 @@ $(".submit-on-enter").keydown(function(event) {
     parser(inputSanitizer(last_command));
   }
 });
+<<<<<<< HEAD
 // make sure that the caret focuses to command line on TAB keypress
+=======
+>>>>>>> 9bff6598b4e1afee313b94d7e7573f6bbfe9373c
 $("body").on("keydown", function(event) {
   if (event.which == 9) {
     event.preventDefault();
