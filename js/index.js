@@ -11,6 +11,9 @@ $(".submit-on-enter").keypress(function(event) {
     parser(inputSanitizer(last_command));
   }
 });
+$(".modal-button, .modal-kill").click(function() {
+  set_display.modalClose();
+});
 
 function gameStatus() {
   console.log("last_scene = " + last_scene);
@@ -187,15 +190,26 @@ var set_display = {
   html: function(html_data) {
     $(".display-container").html(html_data);
   },
+  modalOpen: function(html_data) {
+    $(".modal-kill").css("visibility", "visible");
+    $(".modal").css("visibility", "visible");
+    $(".modal-display-container").html(html_data);
+    $("main").addClass("blurred");
+  },
+  modalClose: function() {
+    $(".modal-kill").css("visibility", "hidden");
+    $(".modal").css("visibility", "hidden");
+    $("main").removeClass("blurred");
+  },
+  placeholder: function(string) {
+    $(".submit-on-enter").attr("placeholder", string);
+  },
   scene: function(scene) {
     set_display.html(get_scene.html(scene));
     current_scene = scene;
     last_scene = current_scene;
     console.log("set_display.scene has loaded scene: " + scene);
   },
-  placeholder: function(string) {
-    $(".submit-on-enter").attr("placeholder", string);
-  }
 };
 
 // * In-game commands * //
@@ -221,7 +235,12 @@ function look() {
   console.log("you have successfully entered the look command.");
 }
 
-function use() {
+function use(object) {
+  if (get_scene.objects(current_scene)[object]) {
+    set_display.modal(get_scene.objects(current_scene)[object].on_use);
+  } else {
+    set_display.placeholder("I don't think you can use that.");
+  }
   console.log("you have successfully entered the use command.");
 }
 

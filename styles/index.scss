@@ -55,6 +55,13 @@ html {
     font-size: 1.25;
   }
 }
+.blurred {
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter:blur(5px);
+}
 body {
   background: #03191f;
   color: $base0;
@@ -109,6 +116,49 @@ main {
     }
     input:focus {
       outline: 0;
+    }
+  }
+}
+.modal-kill {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.5);
+  .modal {
+    width: 50vw;
+    min-height: 20vw;
+    margin: 0 auto;
+    display: block;
+    padding: 50px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 10%;
+    border: 10px solid;
+    border-radius: 1px;
+    background-color: #03191f;
+    box-shadow: 0 0 10px black;
+    visibility: hidden;
+    button {
+      font-size: 24px;
+      font-family: raleway;
+      color: #03191f;
+      background-color: $base0;
+      border: none;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 0%);
+      width: 80px;
+      height: 35px;
+      user-select: none;
+    }
+    button:active {
+      border: none;
+      box-shadow: none;
     }
   }
 }

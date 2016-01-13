@@ -8,12 +8,13 @@
       "east": "scene1"
     },
     "objects": {
-      "object0": {
+      "torch": {
         "name": "torch",
         "description": "Some oil-soaked cloth wrapped around a stick. You could light it if you had a source of fire.",
         "unique": "true",
         "can_pickup": "true",
-        "pickup_message": "You grab the torch and put it in your pack."
+        "pickup_message": "You grab the torch and put it in your pack.",
+        "on_use":"The torch burns away the cobwebs, revealing a passage"
       }
     },
     "tag_init": {
