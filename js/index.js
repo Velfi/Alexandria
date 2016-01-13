@@ -14,6 +14,11 @@ $(".submit-on-enter").keypress(function(event) {
 $(".modal-button, .modal-kill").click(function() {
   set_display.modalClose();
 });
+$(document).on("keydown", function(event) {
+  if(event.which === 13 && $(".modal").is(':visible')) {
+    set_display.modalClose();
+  }
+});
 
 function gameStatus() {
   console.log("last_scene = " + last_scene);
@@ -113,7 +118,7 @@ function parser(strings_to_parse) {
       look();
       break;
     case "use": // use an object
-      use();
+      use(strings_to_parse[1]);
       break;
     case "take": // take an object
     case "get":
@@ -181,7 +186,7 @@ var set_scene = { // these are mostly for controlling state
       set_scene.lastScene = current_scene;
       gameStatus();
     } else {
-      set_display.placeholder("I"m afraid I can"t do that right now.");
+      set_display.placeholder("I'm afraid I can't do that right now.");
     }
   }
 };
@@ -237,7 +242,7 @@ function look() {
 
 function use(object) {
   if (get_scene.objects(current_scene)[object]) {
-    set_display.modal(get_scene.objects(current_scene)[object].on_use);
+    set_display.modalOpen(get_scene.objects(current_scene)[object].on_use);
   } else {
     set_display.placeholder("I don't think you can use that.");
   }
