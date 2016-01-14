@@ -30,14 +30,6 @@ $(document).on("keydown", function(event) {
 function inputSanitizer(command_input) { // used in submit-on-enter function
   return command_input.toLowerCase().split(" ");
 }
-// // disabled during testing
-// function typer(typer_content) {
-//   $(".display-container").typed({
-//     strings: [typer_content],
-//     typeSpeed: 30,
-//     showCursor: false
-//   });
-// }
 
 var main_menu = {
   showMenu: function() {
@@ -204,6 +196,13 @@ function loadStory(story_name) {
 var set_display = {
   html: function(html_data) {
     $(".display-container").html(html_data);
+  },
+  typer: function(html_data) {
+    $(".display-container").typed({
+      strings: [html_data],
+      typeSpeed: 30,
+      showCursor: false
+    });
   },
   modalOpen: function(html_data) {
     $(".modal-kill").css("visibility", "visible");
