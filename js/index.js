@@ -173,15 +173,16 @@ function loadStory(story_name) {
       dataType: "json",
       cache: false,
       success: [function(data) {
-        return data;
-      },
-      function(){
-        set_display.scene("scene0");
-        can_load_stories = false;
-        current_scene = "scene0";
-        last_scene = current_scene;
-        set_display.placeholder("And so it begins...");
-      }],
+          return data;
+        },
+        function() {
+          set_display.scene("scene0");
+          can_load_stories = false;
+          current_scene = "scene0";
+          last_scene = current_scene;
+          set_display.placeholder("And so it begins...");
+        }
+      ],
       error: function() {
         set_display.placeholder("I'm afraid I don't know that story.");
       },
@@ -204,6 +205,8 @@ var set_display = {
       showCursor: false
     });
   },
+  talkOpen: function() {},
+  talkClose: function() {},
   modalOpen: function(html_data) {
     $(".modal-kill").css("visibility", "visible");
     $(".modal").css("visibility", "visible");
