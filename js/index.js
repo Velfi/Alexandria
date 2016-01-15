@@ -272,8 +272,12 @@ function take(object) {
   }
 }
 
-function talk(talk_option) {
-
+function talk(npc_name) {
+  if (get_scene.npcs(current_scene)[npc_name]) {
+    set_display.talkOpen(get_scene.npcs(current_scene)[npc_name]);
+  } else {
+    set_display.placeholder("I don't think you can use that.");
+  }
 }
 var inventory = {
   addItem: function(object) {
