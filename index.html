@@ -1,88 +1,73 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=640">
 
-    <link rel="stylesheet" href="stylesheets/core.css" media="screen">
-    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Alexandria, a text-adventure engine.</title>
+  <link href='https://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="reset.css" type="text/css">
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+</head>
 
-    <script type="text/javascript" src="javascripts/modernizr.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function () {
-        $('#main_content').headsmart()
-      })
-    </script>
-    <title>Alexandria by Velfi</title>
-  </head>
+<body>
+  <a class="fixed-navbar-anchor" id="top"></a>
+  <nav class="fixed-navbar">
+    <a href="#top">
+      <h3 class="brand">Alexandria</h3>
+    </a>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#how_to_play_a_story">How to Play a Story</a></li>
+      <li><a href="#how_to_write_a_story">How to Write a Story</a></li>
+    </ul>
+  </nav>
+  <header>
+    <h2>A browser based text-adventure engine.</h2>
+  </header>
+  <main>
+    <section>
+      <a class="fixed-navbar-anchor" id="about"></a>
+      <p>Alexandria is a text adventure engine the runs in a web browser. It's coded in JavaScript and jQuery and it reads from story files coded in JSON. This project is inspired by all the text adventures and
+        <abbr title="multi-user dungeons">MUDs</abbr> I played as a kid.</p>
+    </section>
+    <section>
+      <a class="fixed-navbar-anchor" id="how_to_play_a_story"></a>
+      <p>The game uses a parser that accepts simple noun-verb phrases and turns them into commands. For the example:</p>
+      <div class="ingame">
+        <code> >> take torch
+          <br/>You take the torch and place it in your pack.
+          <br/> >> examine torch
+          <br/>It is a simple thing comprised of an oil-soaked rag wrapped around a stick.
+        </code>
+      </div>
+      <p>You can learn about each command by reading the in-game help screen (accessible at time entering the 'help' command.)</p>
+    </section>
+    <section>
+      <a class="fixed-navbar-anchor" id="how_to_write_a_story"></a>
+      <p>It's simple to write your own adventures. <strike>To get started, check out the guide or start reading the full documentation</strike>. I'll get to work writing documentation soon.</p>
+    </section>
+  </main>
+  <footer>
+    <p>Website design by Zelda Hessler</p>
+  </footer>
+</body>
+<script>
+  $(function() {
+    $('a[href*=#]:not([href=#])').click(function() {
+      if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+        var target = $(this.hash);
+        target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+        if (target.length) {
+          $('html,body').animate({
+            scrollTop: target.offset().top
+          }, 1000);
+          return false;
+        }
+      }
+    });
+  });
+</script>
 
-  <body>
-    <a id="forkme_banner" href="https://github.com/Velfi/adventure">View on GitHub</a>
-    <div class="shell">
-
-      <header>
-        <span class="ribbon-outer">
-          <span class="ribbon-inner">
-            <h1>Alexandria</h1>
-            <h2>A browser based text adventure engine.</h2>
-          </span>
-          <span class="left-tail"></span>
-          <span class="right-tail"></span>
-        </span>
-      </header>
-
-      <section id="downloads">
-        <span class="inner">
-          <a href="https://github.com/Velfi/adventure/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/Velfi/adventure/tarball/master" class="tgz"><em>download</em> .TGZ</a>
-        </span>
-      </section>
-
-
-      <span class="banner-fix"></span>
-
-
-      <section id="main_content">
-        <p>Alexandria is a text adventure engine the runs in a web browser. It's coded in JavaScript and jQuery and it reads from story files coded in JSON. This project is inspired by all the text adventures and MUDs I played as a kid.</p>
-
-<p>The game uses a parser that accepts simple noun-verb phrases and turns them into commands. For the example:</p>
-
-<pre><code>&gt;&gt; take torch
-You take the torch and place it in your pack.
-&gt;&gt; examine torch
-It is a simple thing comprised of an oil-soaked rag wrapped around a stick.
-</code></pre>
-
-<p>You can learn about each command by reading the in-game help screen (accessible at time entering the 'help' command.)</p>
-
-<p>It's simple to write your own adventures.
-To get started, check out the guide or start reading the full documentation.</p>
-
-<p>Upcoming features:</p>
-
-<ul>
-<li>A dialog system</li>
-<li>Player-triggered events</li>
-</ul>
-      </section>
-
-      <footer>
-        <span class="ribbon-outer">
-          <span class="ribbon-inner">
-            <p>this project by <a href="https://github.com/Velfi">Velfi</a> can be found on <a href="https://github.com/Velfi/adventure">GitHub</a></p>
-          </span>
-          <span class="left-tail"></span>
-          <span class="right-tail"></span>
-        </span>
-        <p>Generated with <a href="https://pages.github.com">GitHub Pages</a> using Merlot</p>
-        <span class="octocat"></span>
-      </footer>
-
-    </div>
-
-    
-  </body>
 </html>
