@@ -62,7 +62,7 @@ header {
   max-width: 960px;
   margin: 70px auto 15px auto;
   padding: 10px 0;
-  background-image: url("http://velfi.github.io/adventure/alexandria_simplified.svg");
+  background-image: url("./alexandria_simplified.svg");
   background-size: contain;
   background-repeat: no-repeat;
   position: relative;
