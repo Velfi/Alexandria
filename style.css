@@ -1,6 +1,14 @@
-p, a, li, span, code {
+p, li, span, code {
   font-size: 1.25em;
   line-height: 1.5em;
+}
+a {
+  color: #cd453d;
+  text-decoration: none;
+  font-weight: 500;
+}
+a:hover {
+  color: #852823;
 }
 h1 {
   font-size: 2.5em;
@@ -10,11 +18,12 @@ h1 {
 h2 {
   font-size: 2em;
   font-weight: normal;
-  padding-bottom: 1em;
+  margin: .75em 0;
 }
 h3 {
   font-size: 1.5em;
   font-weight: normal;
+  margin: .75em 0;
 }
 h4 {
   font-size: 1.25;
@@ -45,7 +54,7 @@ body {
   display: inline-block;
 }
 .fixed-navbar ul li a {
-  padding: 0  0 0 1.5em;
+  padding: 0 0 0 1.5em;
   line-height: 50px;
   height: 50px;
   color: #cd453d;
@@ -56,6 +65,13 @@ body {
   left: 50px;
   color: #cd453d;
   text-decoration: none;
+}
+.alexandria {
+  color: #cd453d;
+  padding: 0;
+  margin: .75em 0;
+  display: inline;
+  font-weight: normal;
 }
 header {
   height: 400px;
@@ -72,6 +88,38 @@ header h2 {
   bottom: 1.5vw;
   right: 80px;
 }
+.doc-head {
+  text-align: center;
+  margin-top: 50px;
+}
+article p {
+  text-align: justify;
+  text-indent: 0.5em;
+}
+article h2 {
+  border-bottom: 2px solid #cd453d;
+  text-indent: 1em;
+}
+article h3 {
+  text-indent: 1em;
+}
+article ul {
+  margin: 10px 0 ;
+  list-style: circle;
+  text-indent: 10px;
+  padding-left: 44px;
+}
+pre {
+  background-color: #ccc;
+  color: #852823;
+  padding: 10px 20px 0 20px;
+  box-shadow: inset 0 0 10px #bbb;
+}
+abbr {
+  color: #852823;
+  cursor: help;
+  padding: 0 4px;
+}
 main {
   max-width: 960px;
   margin: 0 auto;
@@ -84,11 +132,18 @@ main section {
   text-align: justify;
 }
 .ingame {
-    background-color: #ccc;
-    color: #852823;
-    padding: 10px 20px;
-    margin: 10px 0;
-    box-shadow: inset 0 0 10px #bbb;
+  background-color: #ccc;
+  color: #852823;
+  padding: 10px 20px;
+  margin: 10px 0;
+  box-shadow: inset 0 0 10px #bbb;
+}
+.end-padding {
+  height: 300px;
+}
+.upcoming {
+  color: #cd453d;
+  background-color: #ddd;
 }
 footer {
   text-align: center;

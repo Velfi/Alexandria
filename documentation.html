@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Alexandria, a text-adventure engine.</title>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="reset.css" type="text/css">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  </head>
+
+  <body>
+    <div class="doc-head">
+      <h1 class="alexandria" style="display: inline-block; padding-bottom:0 ; margin-bottom: 0;">Alexandria</h1>
+      <h2 style="display: inline-block;">Documentation</h2>
+      <h3>by Zelda H.</h3>
+      <h4>Last updated: 01-18-15</h4>
+    </div>
+    <main>
+      <article id="about">
+        <h2>About</h2>
+        <p> <a href="/" class="alexandria">Alexandria</a> is a text-adventure engine that runs in the browser. It uses a simnple text parser to interpret commands and it reads from specially formatted JSON files. This guide will teach you how a story JSON file is organized and how to write your own.</p>
+        <br>
+        <p>In this guide, I've included examples of plain JSON for perusal as well as many small clarifications. If you see any text among the paragraphs that is colored <abbr title="Red, a primary color.">red</abbr>, try hovering over it to read the note.</p>
+      </article>
+      <article id="json">
+        <h2>What is JSON?</h2>
+        <p>JSON stands for JavaScript object notation. It's easy to read and write, even if you're not already completely familiar with JavaScript literal notation. Most of it is composed of key / value pairs, but keys can also hold sets of key / value pairs themselves.</p>
+        <br>
+        <p>If you'd like to get a good handle on the basics of how JSON is used, see <a href="http://www.copterlabs.com/json-what-it-is-how-it-works-how-to-use-it/">JSON: What It Is, How It Works, &amp; How to Use It</a>. To get an idea of how it's formatted, see examples <a href="http://json.org/example.html">here</a>. If you'd like help linting (debugging) your JSON, you can google the many formatters and validators available online (I prefer <a href="https://jsonformatter.curiousconcept.com/">this</a> one, myself.)</p>
+      </article>
+      <article>
+        <h2>Anatomy of a story file</h2>
+        <h3>This is an example of a simple one-scene story file:</h3>
+        <pre>
+<code>
+"scene0": {
+  "html": "This is where you put the description of a scene, formatted in
+           HTML.",
+
+  "events": {
+    "event0": "This is an event."
+  },
+
+  "moves": {
+    "east": "scene1" },
+
+  "objects": {
+    "torch": {
+    "name": "torch",
+    "description": "Some oil-soaked cloth wrapped around a stick. You could
+                    light it if you had a source of <b>fire</b>.",
+    "is_unique": "true",
+    "is_usable": "true",
+    "is_takeable": "true",
+    "take_message": "You grab the <b>torch</b> and put it in your pack.",
+    "on_use": "The torch burns away the <b>cobwebs</b>, revealing a passage" }
+  },
+
+  "tag_init": {
+    "tag-1": "true", },
+
+  "npc0": {
+    "name": "The name you put here is how players will look at or talk to the
+             npc. It need not be the NPC's actual name, but should instead be
+             one-word descriptor like <b>tiger</b> or <b>woman</b>.",
+    "description": "NPC descriptions go here.",
+    "dialog": {
+      "0": "This is where npc dialog goes."
+    }
+  }
+}</code>
+      </pre>
+      <h3>Scene basics:</h3>
+      <p>At its heart, all a scene really needs to function are a description and a list of possible moves. Scenes are declared in the story file as "<b>scene</b> + <b>a number</b>" (e.g. "scene0, scene1, scene10.") Descriptions should be written as properly tagged HTML, <b>e.g.</b> <abbr title="A paragraph tag.">&lt;p&gt;</abbr>, <abbr title="A heading 1 tag.">&lt;h1&gt;</abbr>, <abbr title="a bold tag.">&lt;b&gt;</abbr>, etc.</p>
+      <br>
+      <p>When writing scene descriptions, it's good practice to highlight possible command targets for the player. This is done with bold tags <b>e.g.</b> "There is an open door to the &lt;b&gt;<b>east</b>&lt;b&gt;" or "a strange &lt;b&gt;<b>woman</b>&lt;b&gt; sits on a chair on the balcony." This practice ensures that a player will understand their options in a scene. On the other hand, <i>not</i> highlighting an important aspect of a scene can be used as part of a puzzle.</p>
+      <div class="ingame">
+        <code>In this room is a stone door locked by a strange mechanism. Tiles
+              with depictions of animals surround the door on all sides. There
+              is an <b>inscription</b> upon the arch of the door.
+              <br/> >> look inscription
+              <br/>You read the inscription:
+              <br/><i>"I walk on four legs and often wear shoes? What am I?"</i>
+              <br/> >> use horse tile
+              <br/>It seems your answer was correct. The door opens slowly.
+        </code>
+      </div>
+      <p>Beware of using this technique as it can easily leave your player lost if not used skillfully.</p>
+      <br/>
+      <p>Moves are very simple to define. Under the moves property of a scene, a key / value pair must be declared for each possible exit. The key string should be the same as the noun component that you expect a player to enter with the <b>move</b> command. The value of that key should be equal to whichever scene the player should be moved to.<b> For example:</b></p>
+      <pre>
+<code>Moves: {
+  "<b>KEY</b>"  : "<b>VALUE</b>",
+  "east" : "scene3",
+  "south": "scene4",
+  "cave" : "scene2",
+  "well" : "scene10"
+}</code>
+      </pre>
+      <p>At this time, move keys must be one word long.</p>
+      <h3>Events:</h3>
+      <p>Events can serve many purposes, and are triggered by many different things:</p>
+      <ul>
+        <li>Looking at an object opens an event with a description of the object.</li>
+        <li>Successfully using objects can cause events to occur.</li>
+      </ul>
+      <p class="upcoming">Upcoming event triggers (not yet implemented):</p>
+      <ul class="upcoming">
+        <li>Events can be triggered by moving to an area.</li>
+        <li>Events can be triggered by talking to NPCs.</li>
+        <li>Some events can only occur if specific tags are active.</li>
+      </ul>
+      <h3>Objects:</h3>
+      <!-- <p>Objects can be quite complex and have many properties.</p> -->
+      <p>To be added.</p>
+      <h3>Tags:</h3>
+      <p>To be added.</p>
+      <h3>NPCs:</h3>
+      <p>To be added.</p>
+      </article>
+    </main>
+    <div class="end-padding"></div>
+    <footer>
+      <p>Website design by Zelda Hessler, &copy; 2015</p>
+    </footer>
+  </body>
+
+</html>
