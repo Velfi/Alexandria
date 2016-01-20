@@ -21,12 +21,6 @@ $(document).on("keydown", function(event) {
   }
 });
 
-// // for debugging
-// function gameStatus() {
-//   console.log("last_scene = " + last_scene);
-//   console.log("current_scene = " + current_scene);
-// }
-
 function inputSanitizer(command_input) { // used in submit-on-enter function
   return command_input.toLowerCase().split(" ");
 }
@@ -47,29 +41,7 @@ var main_menu = {
       async: true,
     });
   }
-  // ,
-  // loadSavefile: function() {
-  //   console.log("you tried to load a save.");
-  // }
 };
-// var options = {
-//   // display the options screen
-//   showMenu: function() {
-//     var help = $.ajax({
-//       url: "html/options.html",
-//       type: "get",
-//       dataType: "html",
-//       cache: false,
-//       success: function(data) {
-//         setDisplay(data);
-//       },
-//       async: true,
-//     });
-//     in_menu = true;
-//     set_display.placeholder("Go set your settings, setting setter.");
-//     console.log("options.show_menu() has loaded the options screen.");
-//   }
-// };
 var help = {
   // display the help screen
   showMenu: function() {
@@ -114,28 +86,9 @@ function parser(strings_to_parse) {
     case "look": // look at something
       look(strings_to_parse[1]);
       break;
-    // case "inventory":
-    // case "inv":
-    //   inventory();
-    //   break;
     case "use": // use an object
       use(strings_to_parse[1]);
       break;
-    // case "take": // take an object
-    // case "get":
-    //   take(strings_to_parse[1]);
-    //   break;
-    // case "talk": // talk to an NPC
-    // case "say":
-    //   talk();
-    //   break;
-    // case "theme":
-    //   console.log(inputSanitizer(stringsToParse)[1]);
-    //   themeSwitcher(inputSanitizer(stringsToParse)[1]);
-    //   break;
-    // case "options": // show game options
-    //   options.showMenu();
-    //   break;
     case "back": // back out of in-game menus
       back();
       break;
@@ -149,11 +102,6 @@ var get_scene = { //these are for retrieving specific scene data
   html: function(scene) {
     return scene_file.responseJSON[scene].html;
   },
-  // returns on object
-  // tag_init: function(scene) {
-  //   return scene_file.responseJSON[scene].tag_init;
-  // },
-  // returns on object
   moves: function(scene) {
     return scene_file.responseJSON[scene].moves;
   },
@@ -201,15 +149,6 @@ var set_display = {
   html: function(html_data) {
     $(".display-container").html(html_data);
   },
-  // typer: function(html_data) {
-  //   $(".display-container").typed({
-  //     strings: [html_data],
-  //     typeSpeed: 30,
-  //     showCursor: false
-  //   });
-  // },
-  // talkOpen: function() {},
-  // talkClose: function() {},
   modalOpen: function(html_data) {
     $(".modal-kill").css("visibility", "visible");
     $(".modal").css("visibility", "visible");
@@ -272,36 +211,3 @@ function use(object) {
     set_display.placeholder("I don't think you can use that.");
   }
 }
-//
-// function take(object) {
-//   if (get_scene.objects(current_scene)[object]) { //if object is present
-//     if (get_scene.objects(current_scene)[object].can_take) { // and is takeable
-//       if (get_scene.objects(current_scene)[object].is_unique)
-//         set_display.modalOpen(get_scene.objects(current_scene)[object].take_message);
-//       inventory.addItem(object);
-//     } else {
-//       set_display.placeholder("What are you trying to take?");
-//     }
-//   }
-// }
-//
-// function talk(npc_name) {
-//   if (get_scene.npcs(current_scene)[npc_name]) {
-//     set_display.talkOpen(get_scene.npcs(current_scene)[npc_name]);
-//   } else {
-//     set_display.placeholder("I don't think you can use that.");
-//   }
-// }
-// var inventory = {
-//   addItem: function(object) {
-//     player_inventory.push(object);
-//   },
-//   removeItem: function(object) {
-//     player_inventory = player_inventory.splice(player_inventory.indexOf(object), 1);
-//   }
-// };
-// couldn't get it to work, I'll come back later.
-// function themeSwitcher() {
-//   $("body").css("background-color", "$base2");
-//   $("input").css("background-color", "$base2");
-// }
