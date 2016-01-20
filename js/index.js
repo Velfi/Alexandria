@@ -38,35 +38,38 @@ var main_menu = {
       type: "get",
       dataType: "html",
       cache: false,
-      success: set_display.html,
-      async: true,
-    });
-    in_menu = true;
-    set_display.placeholder("What's next for our hero?");
-    console.log("main_menu.show_menu() has loaded the main menu.");
-  },
-  loadSavefile: function() {
-    console.log("you tried to save.");
-  }
-};
-var options = {
-  // display the options screen
-  showMenu: function() {
-    var help = $.ajax({
-      url: "html/options.html",
-      type: "get",
-      dataType: "html",
-      cache: false,
-      success: function(data) {
-        setDisplay(data);
+      success: function(data){
+        set_display.html(data);
+        set_display.placeholder("What's next for our hero?");
+        console.log("main_menu.show_menu() has loaded the main menu.");
+        in_menu = true;
       },
       async: true,
     });
-    in_menu = true;
-    set_display.placeholder("Go set your settings, setting setter.");
-    console.log("options.show_menu() has loaded the options screen.");
   }
+  // ,
+  // loadSavefile: function() {
+  //   console.log("you tried to load a save.");
+  // }
 };
+// var options = {
+//   // display the options screen
+//   showMenu: function() {
+//     var help = $.ajax({
+//       url: "html/options.html",
+//       type: "get",
+//       dataType: "html",
+//       cache: false,
+//       success: function(data) {
+//         setDisplay(data);
+//       },
+//       async: true,
+//     });
+//     in_menu = true;
+//     set_display.placeholder("Go set your settings, setting setter.");
+//     console.log("options.show_menu() has loaded the options screen.");
+//   }
+// };
 var help = {
   // display the help screen
   showMenu: function() {
@@ -78,12 +81,12 @@ var help = {
       success: function(data) {
         set_display.html(data);
         $("#help_info").attr("style", "display:block");
+        in_menu = true;
+        set_display.placeholder("What exactly would you like to know?");
+        console.log("help.show_menu() has loaded the help screen.");
       },
       async: true,
     });
-    in_menu = true;
-    set_display.placeholder("What exactly would you like to know?");
-    console.log("help.show_menu() has loaded the help screen.");
   },
   toggler: function(x) {
     var info_div = ("#" + $(x).attr("id") + "_info");
@@ -109,30 +112,30 @@ function parser(strings_to_parse) {
       moveTo(strings_to_parse[1]);
       break;
     case "look": // look at something
-      look();
+      look(strings_to_parse[1]);
       break;
-    case "inventory":
-    case "inv":
-      inventory();
-      break;
+    // case "inventory":
+    // case "inv":
+    //   inventory();
+    //   break;
     case "use": // use an object
       use(strings_to_parse[1]);
       break;
-    case "take": // take an object
-    case "get":
-      take(strings_to_parse[1]);
-      break;
-    case "talk": // talk to an NPC
-    case "say":
-      talk();
-      break;
-      // case "theme":
-      //   console.log(inputSanitizer(stringsToParse)[1]);
-      //   themeSwitcher(inputSanitizer(stringsToParse)[1]);
-      //   break;
-    case "options": // show game options
-      options.showMenu();
-      break;
+    // case "take": // take an object
+    // case "get":
+    //   take(strings_to_parse[1]);
+    //   break;
+    // case "talk": // talk to an NPC
+    // case "say":
+    //   talk();
+    //   break;
+    // case "theme":
+    //   console.log(inputSanitizer(stringsToParse)[1]);
+    //   themeSwitcher(inputSanitizer(stringsToParse)[1]);
+    //   break;
+    // case "options": // show game options
+    //   options.showMenu();
+    //   break;
     case "back": // back out of in-game menus
       back();
       break;
@@ -147,9 +150,9 @@ var get_scene = { //these are for retrieving specific scene data
     return scene_file.responseJSON[scene].html;
   },
   // returns on object
-  tag_init: function(scene) {
-    return scene_file.responseJSON[scene].tag_init;
-  },
+  // tag_init: function(scene) {
+  //   return scene_file.responseJSON[scene].tag_init;
+  // },
   // returns on object
   moves: function(scene) {
     return scene_file.responseJSON[scene].moves;
@@ -180,6 +183,7 @@ function loadStory(story_name) {
           can_load_stories = false;
           current_scene = "scene0";
           last_scene = current_scene;
+          in_menu = false;
           set_display.placeholder("And so it begins...");
         }
       ],
@@ -188,7 +192,6 @@ function loadStory(story_name) {
       },
       async: true,
     });
-
   } else {
     set_display.placeholder("let me finish this story first before you start asking for another.");
   }
@@ -198,15 +201,15 @@ var set_display = {
   html: function(html_data) {
     $(".display-container").html(html_data);
   },
-  typer: function(html_data) {
-    $(".display-container").typed({
-      strings: [html_data],
-      typeSpeed: 30,
-      showCursor: false
-    });
-  },
-  talkOpen: function() {},
-  talkClose: function() {},
+  // typer: function(html_data) {
+  //   $(".display-container").typed({
+  //     strings: [html_data],
+  //     typeSpeed: 30,
+  //     showCursor: false
+  //   });
+  // },
+  // talkOpen: function() {},
+  // talkClose: function() {},
   modalOpen: function(html_data) {
     $(".modal-kill").css("visibility", "visible");
     $(".modal").css("visibility", "visible");
@@ -236,7 +239,13 @@ function back() {
     if (last_scene === "main_menu") {
       main_menu.showMenu();
     }
+    else {
+      set_display.scene(last_scene);
+    }
     in_menu = false;
+  }
+  else {
+    set_display.placeholder("Back to where?");
   }
 }
 
@@ -248,8 +257,12 @@ function moveTo(scene) {
   }
 }
 
-function look() {
-  console.log("you have successfully entered the look command.");
+function look(object) {
+  if (get_scene.objects(current_scene)[object]) {
+    set_display.modalOpen(get_scene.objects(current_scene)[object].description);
+  } else {
+    set_display.placeholder("I can't see that anywhere.");
+  }
 }
 
 function use(object) {
@@ -259,34 +272,34 @@ function use(object) {
     set_display.placeholder("I don't think you can use that.");
   }
 }
-
-function take(object) {
-  if (get_scene.objects(current_scene)[object]) { //if object is present
-    if (get_scene.objects(current_scene)[object].can_take) { // and is takeable
-      if (get_scene.objects(current_scene)[object].is_unique)
-        set_display.modalOpen(get_scene.objects(current_scene)[object].take_message);
-      inventory.addItem(object);
-    } else {
-      set_display.placeholder("What are you trying to take?");
-    }
-  }
-}
-
-function talk(npc_name) {
-  if (get_scene.npcs(current_scene)[npc_name]) {
-    set_display.talkOpen(get_scene.npcs(current_scene)[npc_name]);
-  } else {
-    set_display.placeholder("I don't think you can use that.");
-  }
-}
-var inventory = {
-  addItem: function(object) {
-    player_inventory.push(object);
-  },
-  removeItem: function(object) {
-    player_inventory = player_inventory.splice(player_inventory.indexOf(object), 1);
-  }
-};
+//
+// function take(object) {
+//   if (get_scene.objects(current_scene)[object]) { //if object is present
+//     if (get_scene.objects(current_scene)[object].can_take) { // and is takeable
+//       if (get_scene.objects(current_scene)[object].is_unique)
+//         set_display.modalOpen(get_scene.objects(current_scene)[object].take_message);
+//       inventory.addItem(object);
+//     } else {
+//       set_display.placeholder("What are you trying to take?");
+//     }
+//   }
+// }
+//
+// function talk(npc_name) {
+//   if (get_scene.npcs(current_scene)[npc_name]) {
+//     set_display.talkOpen(get_scene.npcs(current_scene)[npc_name]);
+//   } else {
+//     set_display.placeholder("I don't think you can use that.");
+//   }
+// }
+// var inventory = {
+//   addItem: function(object) {
+//     player_inventory.push(object);
+//   },
+//   removeItem: function(object) {
+//     player_inventory = player_inventory.splice(player_inventory.indexOf(object), 1);
+//   }
+// };
 // couldn't get it to work, I'll come back later.
 // function themeSwitcher() {
 //   $("body").css("background-color", "$base2");
