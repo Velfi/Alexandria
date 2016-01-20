@@ -1,36 +1,12 @@
-# Adventure
+# Alexandria v1.0
 ## by Zelda Hessler
-A browser based text adventure
+A browser based text adventure engine coded in JavaScript & jQuery.
 
-### Featuring:
-  * A dialog system using typed.js
-  * A decision tree using JSON
-  * a simple command parser
+This is the development branch of my Alexandria project. I am currently working on expanding the object system and adding player inventories.
 
-### The structure of a story(in progress)
-
-- Scenes file
-  - Scene(n) // Adventures always start at scene0
-    1. scene_name
-    2. scene_description
-    3. moves
-      - location
-        * is_closed
-          * opened_with
-    4. objects
-      - object
-      - object_name
-      - object_description
-      - is_takeable
-      - is_unique
-      - interacts_with
-        * interact_object
-      - combines_with
-        * combo_object
-    5. NPCs
-      - character
-        * character_name
-        * character_description
-        * interacts_with
-        * dialog
-
+### Upcoming Features:
+  * Taking objects & player inventory
+  * NPCs and dialog
+  * The ability to combine/use items together
+  * Player input history
+  * Saving and loading game progress
