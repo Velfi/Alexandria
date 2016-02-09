@@ -1,0 +1,160 @@
+{
+  "scene0": {
+    "onLoad": ["<p>You wake up on a bus; You must have dozed off. It’s unclear where you’re headed. The highway is bounded on either side by thick forest, By the looks of the leaves, it must be autumn. You close your eyes and fall back asleep.</p>", "<p>You wake just as the bus is coming to a stop. Getting off, you realize that you were the sole passenger on this trip. Behind you, the bus rumbles off into the distance, disappearing out of sight around a bend in the road.</p>"],
+    "title": "The Bus Stop",
+    "description": "<p>In front of you a dirt <b class='object'>road</b> trails off into the silent <b class='move'>woods</b>. No cars pass behind you, no <b class='object'>birds</b> are calling. There is a heavy silence, broken only by the occasional whisper of rustling leaves. There is a dilapidated wooden <b class='object'>bench</b> here.</p>",
+    "objects": {
+      "bench": "<p>The bench is very worn by either use or weathering; You suspect the latter. If it was ever painted, no evidence of that remains. It is a withered gray.</p>",
+      "birds": "<p>You can't see any wildlife at all.</p>",
+      "road": "<p>The dusty road winds off into the woods. There must have been rain here not to long ago as the road is still slightly muddy in some spots.</p>"
+    },
+    "moves": {
+      "woods": "scene1"
+    }
+  },
+  "scene1": {
+    "title": "Down the dirt road",
+    "description": "<p>Setting off down the dirt road, the <b>canopy</b> above you seems to grow thicker with each step. Walking on, fewer and fewer rays of sunlight break through to light your way <b>ahead</b>. You feel nervous but can’t place why. There may still be time to turn back.</p>",
+    "objects": {
+      "canopy": "<p>The canopy of autumn leaves is quite dense. The colors are beautiful, and yet, you find the rampant vegetation stifling.</p>"
+    },
+    "moves": {
+      "ahead": ["scene2", "<p>You feel as though you have made an irrevocable decision by continuing on. Ahead, the woods are swampy and the road is muddier.</p>"]
+    }
+  },
+  "scene2": {
+    "title": "The marsh bridge",
+    "description": "<p>Leaving the <b>woods</b>, the terrain gives way to <b>swamplands</b>, on either side of the road. The air here is cold.<br>A <b>bridge</b>, almost too narrow for a car to pass over, arches over an area of saturated ground. The <b>road</b> continues on into the mist.</p>",
+    "moves": {
+      "woods": "scene1",
+      "road": "scene3"
+    },
+    "objects": {
+      "woods": "<p>Passing out of the woods, you've traded thick vegetation for an obscuring mist.</p>",
+      "swamplands": "<p>The swamplands stretch off into a thin fog and tall snags are scattered about the soaked landscape. You're grateful to have a road to walk on; Travel through the swamp itself would be arduous.</p>",
+      "bridge": "<p>The bridge doesn't look sturdy enough for a car, but it should carry your weight.</p>"
+    }
+  },
+  "scene3": {
+    "title": "The marsh road",
+    "description": "<p></p>",
+    "moves": {},
+    "objects": {}
+  },
+  "scene4": {
+    "title": "A village",
+    "description": "<p></p>",
+    "moves": {},
+    "objects": {}
+  },
+  "scene5": {
+    "title": "",
+    "description": "<p></p>",
+    "moves": {},
+    "objects": {}
+  },
+  "scene6": {
+    "title": "",
+    "description": "<p></p>",
+    "moves": {},
+    "objects": {}
+  },
+  "scene7": {
+    "title": "",
+    "description": "<p></p>",
+    "moves": {},
+    "objects": {}
+  },
+  "scene8": {
+    "title": "Foot of the hill",
+    "description": "<p>You stand at the foot of a broad hill, at the top of which rests a <b>mansion</b>, different in style and architecture from the other buildings in the town proper. It is quite large, but hardly palatial. A gravel driveway leads up the hill to a circular driveway out in front. The ground floor windows are quite tall, and the roof is punctuated every couple of meters with dormers. The walls look to be made of gray stone. The grounds have no fence or gates. The surrounding landscape is filled with tall, dense, and pointy bushes. They rustle in the wind, but are as gray and lifeless as the mansion itself.</p>",
+    "moves": {},
+    "objects": {}
+  },
+  "scene9": {
+    "title": "The door",
+    "description": "<p>The entrance to the mansion is a large set of double <b>doors</b> made from a dark wood. They are ornately <b>carved</b>. The gray walls of the mansion are constructed from roughly carved granite. There is a large brass handle on each door.</p>",
+    "moves": {
+      "doors": ["scene10", "<p>You push through the large doors. They open inward and then slowly close behind you.</p>"]
+    },
+    "objects": {
+      "carved": "<p>The carvings depict thousands of miniscule, intertwined,  frog-like creatures: Each one seems different from the last, some with limbs, and others that are more serpentine in appearance.</p>"
+    }
+  },
+  "scene10": {
+    "title": "Foyer",
+    "description": "<p>You enter into what was once a grand foyer. The ceiling vaults above you, supporting a bizarre octopean chandelier which sports many glass legs. The floor consists of large black and white tiles, arranged in penrose fashion. At one time there were two sets of stairs leading up to a mezzanine with a series of doors; They are now piles of shattered granite and strangely corroded metal. If you want to explore up there, you’ll have to find a different way up. The walls are of a dark paneled wood. Shaded sconces are placed at regular intervals, and exude a dim warm glow. There is a closed door off to your left and another to your right. You can see a third door, left slightly ajar, beyond the ruined stairs. You hear the soft ticking of a clock somewhere.</p>",
+    "moves": {
+      "left": "",
+      "right": "",
+      "beyond": ""
+    },
+    "objects": {}
+  },
+  "scene11": {
+    "title": "Ballroom",
+    "description": "<p>This room has all the appearance of a ballroom, except that it has no floor; Only a deep dark void where a floor should be. Many large, unbroken, and arched windows line the walls. They are surrounded by beautiful gilding: untarnished by time, but dulled by dust. Ornate candelabra are mounted between each window. Some of them still have unbroken bulbs. The ceiling is covered in frescoes, although, any light colors have since faded away, making the images indiscernible.<br>You can’t imagine any way to navigate this room. (With flashlight) The flashlight illuminates strange paths of slightly “shiny” blackness. You find these paths to be quite solid, although the thought of treading upon them fills you with dread. Still, you can’t think of a better way to get across.</p>",
+    "moves": {},
+    "objects": {}
+  },
+  "scene12": {
+    "title": "Study",
+    "description": "<p></p>",
+    "moves": {},
+    "objects": {}
+  },
+  "scene13": {
+    "title": "Kitchen",
+    "description": "<p></p>",
+    "moves": {},
+    "objects": {}
+  },
+  "scene14": {
+    "title": "Back stairs",
+    "description": "<p></p>",
+    "moves": {},
+    "objects": {}
+  },
+  "scene15": {
+    "title": "The loggia",
+    "description": "<p></p>",
+    "moves": {},
+    "objects": {}
+  },
+  "scene16": {
+    "title": "Garden of night",
+    "description": "<p></p>",
+    "moves": {},
+    "objects": {}
+  },
+  "scene17": {
+    "title": "Library",
+    "description": "<p></p>",
+    "moves": {},
+    "objects": {}
+  },
+  "scene18": {
+    "title": "The water closet",
+    "description": "<p></p>",
+    "moves": {},
+    "objects": {}
+  },
+  "scene19": {
+    "title": "Music room",
+    "description": "<p></p>",
+    "moves": {},
+    "objects": {}
+  },
+  "scene20": {
+    "title": "Master bedroom",
+    "description": "<p></p>",
+    "moves": {},
+    "objects": {}
+  },
+  "scene21": {
+    "title": "Guest bedroom",
+    "description": "<p></p>",
+    "moves": {},
+    "objects": {}
+  }
+}
