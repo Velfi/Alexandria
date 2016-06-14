@@ -62,6 +62,7 @@ body {
 }
 .brand {
   position: absolute;
+  margin: 0;
   top: 5px;
   left: 50px;
   color: #cd453d;
