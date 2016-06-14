@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 
 <head>
   <title>Adventure</title>
@@ -34,3 +35,76 @@
 </body>
 <script src="js/index.js"></script>
 <script src="js/init.js"></script>
+=======
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Alexandria, a text-adventure engine.</title>
+  <link href='https://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="reset.css" type="text/css">
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+</head>
+
+<body>
+  <a class="fixed-navbar-anchor" id="top"></a>
+  <nav class="fixed-navbar">
+    <a href="#top">
+      <h3 class="brand">Alexandria</h3>
+    </a>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#how_to_play_a_story">How to Play a Story</a></li>
+      <li><a href="#how_to_write_a_story">How to Write a Story</a></li>
+    </ul>
+  </nav>
+  <header>
+    <h2>A browser based text-adventure engine.</h2>
+  </header>
+  <main>
+    <section>
+      <a class="fixed-navbar-anchor" id="about"></a>
+      <p>Alexandria is a text adventure engine the runs in a web browser. It's coded in JavaScript and jQuery and it reads from story files coded in JSON. This project is inspired by all the text adventures and <abbr title="multi-user dungeons">MUDs </abbr>I played as a kid.
+        <br/>
+        <br/> Currently, Alexandria is a one-woman project that I build in my spare time. Although I am currently the sole author of Alexandria, big thanks go to my partner Ashley, who is always there to support me.</p>
+    </section>
+    <section>
+      <a class="fixed-navbar-anchor" id="how_to_play_a_story"></a>
+      <p>The game uses a parser that accepts simple noun-verb phrases and turns them into commands. For the example:</p>
+      <div class="ingame">
+        <code> >> take torch
+          <br/>You take the torch and place it in your pack.
+          <br/> >> examine torch
+          <br/>It is a simple thing comprised of an oil-soaked rag wrapped around a stick.
+        </code>
+      </div>
+      <p>You can learn about each command by reading the in-game help screen (accessible at time entering the 'help' command.)</p>
+    </section>
+    <section>
+      <a class="fixed-navbar-anchor" id="how_to_write_a_story"></a>
+      <p><strike> It's simple to write your own adventures. To get started, check out the guide or start reading the full documentation</strike>. I hope to make the JSON very simple so that anyone can write their own. Currently, the engine is capable of supporting simple text adventures, but I am adding new things all the time. I hope to release a first version soon. I'll get to work writing <a href="/documentation.html">documentation</a> soon, including '<i>How to set up a test environment</i>' and '<i>How to write a story.JSON file.</i>'</p>
+    </section>
+  </main>
+  <footer>
+    <p>Website design by Zelda Hessler, &copy; 2015</p>
+  </footer>
+</body>
+<script>
+$(function() {
+  $('a[href*=#]:not([href=#])').click(function() {
+    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+      if (target.length) {
+        $('html,body').animate({
+          scrollTop: target.offset().top
+        }, 1000);
+        return false;
+      }
+    }
+  });
+});
+</script>
+</html>
+>>>>>>> 8573037635f0e67cfabebf5f7e8d91bd4c1d86de
