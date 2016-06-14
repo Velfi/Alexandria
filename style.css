@@ -1,3 +1,7 @@
+html {
+  min-width: 900px;
+}
+
 p, li, span, code {
   font-size: 1.25em;
   line-height: 1.5em;
@@ -33,7 +37,6 @@ body {
   font-family: Raleway, sans-serif;
   font-weight: 400;
   color: #555;
-  min-width: 900px;
 }
 .fixed-navbar {
   width: 100%;
